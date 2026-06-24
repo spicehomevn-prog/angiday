@@ -1,0 +1,51 @@
+/* ===========================================================================
+   Ăn Gì Đây? — Color tokens
+   Warm "kitchen paper" palette: toasted cream backgrounds, a friendly
+   chili-red primary, herb green, turmeric gold and plum accents, all on a
+   warm brown ink. Every accent ships with a matching pale "soft" tint used
+   for chips, badges and ghost buttons.
+   =========================================================================== */
+:root {
+  /* ---- Base surfaces ---- */
+  --paper:        #FBF3E8;  /* app background, lightest cream */
+  --paper-2:      #F4E7D6;  /* background gradient end, hover fill */
+  --card:         #FFFFFF;  /* card surface */
+
+  /* ---- Primary: chili red ---- */
+  --red:          #E0533B;  /* primary action */
+  --red-deep:     #C23E29;  /* pressed / chunky button shadow / links */
+  --red-soft:     #FBE0D6;  /* ghost fill, selected chip tint */
+  --red-deepest:  #A3331F;  /* deepest pressed shadow */
+
+  /* ---- Herb green ---- */
+  --green:        #3F9A5B;  /* secondary / "fresh & healthy" */
+  --green-soft:   #E4F1E5;  /* soft button + badge fill */
+
+  /* ---- Turmeric gold ---- */
+  --gold:         #EFA53C;  /* warm accent */
+  --gold-soft:    #FBEBCF;  /* gold badge fill */
+  --gold-ink:     #946312;  /* readable text on gold-soft */
+
+  /* ---- Plum ---- */
+  --plum:         #A8537E;  /* focus ring + special accent */
+  --plum-soft:    #F6E2EC;  /* plum badge fill */
+
+  /* ---- Ink / text ---- */
+  --ink:          #3B2A20;  /* primary text, warm near-black brown */
+  --ink-soft:     #9A8270;  /* secondary text, muted taupe */
+  --line:         #EDE0CF;  /* hairline borders, dividers */
+
+  /* ---- Semantic aliases ---- */
+  --bg-app:           var(--paper);
+  --surface-card:     var(--card);
+  --surface-sunken:   #FFFCF7;          /* inputs, list rows */
+  --text-body:        var(--ink);
+  --text-muted:       var(--ink-soft);
+  --text-on-accent:   #FFFFFF;
+  --border-hairline:  var(--line);
+  --accent-primary:   var(--red);
+  --accent-success:   var(--green);
+  --accent-warning:   var(--gold);
+  --accent-special:   var(--plum);
+  --focus-ring:       var(--plum);
+}

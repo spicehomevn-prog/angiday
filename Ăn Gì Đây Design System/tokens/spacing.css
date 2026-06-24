@@ -1,0 +1,32 @@
+/* ===========================================================================
+   Ăn Gì Đây? — Spacing, radii & layout tokens
+   Generous, rounded, mobile-first. The app lives in a single 560px column.
+   Three radius steps echo through cards (26), inner blocks (18) and inputs
+   (13); pills use a full 999px.
+   =========================================================================== */
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1:   4px;
+  --space-2:   7px;
+  --space-3:   10px;
+  --space-4:   14px;
+  --space-5:   16px;
+  --space-6:   22px;
+  --space-7:   24px;
+  --space-8:   34px;
+
+  /* ---- Radii ---- */
+  --r:         26px;   /* primary card */
+  --r-md:      18px;   /* dish card, list row, inner block */
+  --r-sm:      13px;   /* input, small block */
+  --r-pill:    999px;  /* buttons, chips, badges */
+
+  /* ---- Layout ---- */
+  --app-max:        560px;  /* single column max width */
+  --app-pad-x:      16px;
+  --tabbar-max:     528px;
+  --hit-min:        44px;   /* minimum touch target */
+
+  /* ---- Card padding ---- */
+  --card-pad:       22px;
+}

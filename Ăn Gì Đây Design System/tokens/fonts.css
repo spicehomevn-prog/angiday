@@ -1,0 +1,7 @@
+/* ===========================================================================
+   Ăn Gì Đây? — Webfonts
+   Display: Baloo 2 (rounded, friendly headline face)
+   Body:    Be Vietnam Pro (clean Vietnamese-first text face)
+   Both are served from Google Fonts. The codebase loads them the same way.
+   =========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');

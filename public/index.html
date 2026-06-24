@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ăn Gì Đây? — Gợi ý thực đơn cho cả nhà</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Design System tokens (Ăn Gì Đây? Design System — embedded) ── */
+:root {
+  /* Colors */
+  --paper:#FBF3E8; --paper-2:#F4E7D6; --card:#FFFFFF;
+  --red:#E0533B; --red-deep:#C23E29; --red-soft:#FBE0D6; --red-deepest:#A3331F;
+  --green:#3F9A5B; --green-soft:#E4F1E5;
+  --gold:#EFA53C; --gold-soft:#FBEBCF; --gold-ink:#946312;
+  --plum:#A8537E; --plum-soft:#F6E2EC;
+  --ink:#3B2A20; --ink-soft:#9A8270; --line:#EDE0CF;
+  --surface-card:#FFFFFF; --surface-sunken:#FFFCF7;
+  --text-on-accent:#ffffff;
+  --accent-primary:var(--red); --accent-success:var(--green);
+  --accent-warning:var(--gold); --accent-special:var(--plum);
+  --focus-ring:var(--plum);
+  /* Typography */
+  --font-display:"Baloo 2",system-ui,-apple-system,sans-serif;
+  --font-body:"Be Vietnam Pro",system-ui,-apple-system,sans-serif;
+  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-extra:800;
+  --fs-hero:33px; --fs-h1:25px; --fs-h2:22px; --fs-h3:17px;
+  --fs-lg:16px; --fs-md:15px; --fs-sm:14px; --fs-xs:13px; --fs-2xs:11.5px;
+  --eyebrow-size:11.5px; --eyebrow-track:1.4px; --eyebrow-weight:700;
+  --lh-tight:1.1; --lh-snug:1.45; --lh-body:1.5; --lh-relaxed:1.55;
+  /* Spacing */
+  --space-1:4px; --space-2:7px; --space-3:10px; --space-4:14px;
+  --space-5:16px; --space-6:22px; --space-7:24px; --space-8:34px;
+  --r:26px; --r-md:18px; --r-sm:13px; --r-pill:999px;
+  --app-max:560px; --app-pad-x:16px; --hit-min:44px; --card-pad:22px;
+  /* Effects */
+  --shadow:0 14px 34px rgba(120,75,40,.14);
+  --shadow-sm:0 5px 16px rgba(120,75,40,.10);
+  --btn-shadow:0 7px 0 var(--red-deep);
+  --btn-shadow-hover:0 5px 0 var(--red-deepest);
+  --btn-shadow-active:0 3px 0 var(--red-deepest);
+  --bg-gradient:
+    radial-gradient(120% 80% at 50% -10%,#FFF6EC 0%,transparent 55%),
+    linear-gradient(180deg,var(--paper),var(--paper-2));
+  --glass-fill:rgba(255,255,255,.86); --glass-blur:blur(12px);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --dur-fast:.12s; --dur-base:.25s; --dur-expand:.35s;
+}
+/* Keyframes */
+@keyframes agd-bob   { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-12px) rotate(3deg)} }
+@keyframes agd-pop   { 0%{transform:scale(.97);opacity:.5} 100%{transform:scale(1);opacity:1} }
+@keyframes agd-shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px) rotate(-2deg)} 40%{transform:translateX(7px) rotate(2deg)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+@keyframes agd-pulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(.94)} }
+/* DS interaction states */
+.agd-btn:active { transform:translateY(2px) }
+.agd-btn[data-variant="primary"]:hover  { background:var(--red-deep); box-shadow:var(--btn-shadow-hover) }
+.agd-btn[data-variant="primary"]:active { box-shadow:var(--btn-shadow-active) }
+.agd-btn[data-variant="ghost"]:hover    { background:#F8D2C4 }
+.agd-btn[data-variant="soft"]:hover     { background:#D4EAD8 }
+.agd-btn[data-variant="line"]:hover     { border-color:var(--red) }
+.agd-chip:hover { border-color:var(--red) }
+.agd-chip[data-tone="green"]:hover { border-color:var(--green) }
+.agd-tab:hover  { background:var(--paper-2) }
+.agd-mini:hover { transform:scale(1.08) }
+.agd-step-btn:hover { background:#F8D2C4 }
+.agd-input:focus { border-color:var(--red) }
+:focus-visible  { outline:3px solid var(--focus-ring); outline-offset:2px; border-radius:6px }
+/* App shell */
+*,*::before,*::after { box-sizing:border-box }
+html,body { margin:0; padding:0 }
+body {
+  font-family:var(--font-body); color:var(--ink); line-height:var(--lh-body);
+  background:var(--bg-gradient); background-attachment:fixed;
+  min-height:100dvh; -webkit-font-smoothing:antialiased;
+}
+.app { max-width:var(--app-max); margin:0 auto; padding:14px var(--app-pad-x) 110px; min-height:100dvh }
+.topbar { display:flex; align-items:center; justify-content:center; gap:9px; padding:8px 0 16px }
+.topbar img { width:38px; height:38px; display:block; filter:drop-shadow(0 4px 6px rgba(120,75,40,.18)) }
+.topbar .name { font-family:var(--font-display); font-weight:800; font-size:22px; color:var(--red-deep) }
+.topbar .name b { color:var(--green) }
+.toast {
+  position:fixed; left:50%; bottom:96px;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:#fff; padding:12px 20px;
+  border-radius:999px; font-size:14px; font-weight:600;
+  opacity:0; transition:.25s; box-shadow:var(--shadow); z-index:70;
+  white-space:nowrap;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0) }
+.agd-bob   { animation:agd-bob 2.8s ease-in-out infinite }
+.agd-pop   { animation:agd-pop .35s ease }
+.agd-shake { animation:agd-shake .5s ease }
+@media (prefers-reduced-motion:reduce) { *,::before,::after { animation:none !important; transition:none !important } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- React + Babel CDN -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<!-- Design System component bundle -->
+<script src="_ds_bundle.js"></script>
+
+<!-- Dish catalogue -->
+<script src="dishes.js"></script>
+
+<!-- App screens (compiled by Babel in-browser) -->
+<script src="screens.jsx" type="text/babel"></script>
+
+<!-- App entry: routing + localStorage persistence -->
+<script type="text/babel">
+const { TabBar } = window.NGYDesignSystem_adcec4;
+
+function App() {
+  // ── Persistent state ──────────────────────────────────────────────────────
+  const [profile,   setProfile]   = React.useState(() => Store.get(K_PROFILE));
+  const [favorites, setFavorites] = React.useState(() => Store.get(K_FAV) || []);
+  const [menu,      setMenu]      = React.useState(() => {
+    const t = Store.get(K_TODAY);
+    return (t && t.date === todayStr()) ? t : null;
+  });
+  const [imgCache,  setImgCache]  = React.useState(() => Store.get(K_IMGCACHE) || {});
+
+  const saveProfile = (p)  => { setProfile(p);  Store.set(K_PROFILE, p); };
+  const saveFavs    = (fs) => { setFavorites(fs); Store.set(K_FAV, fs); };
+  const saveMenu    = (m)  => { setMenu(m);       Store.set(K_TODAY, m); };
+
+  // ── Route ─────────────────────────────────────────────────────────────────
+  const [route, setRoute] = React.useState(() => profile ? 'home' : 'welcome');
+  const [editProfile, setEditProfile] = React.useState(false);
+
+  // ── Toast ─────────────────────────────────────────────────────────────────
+  const [toast, setToast] = React.useState('');
+  const flash = (m) => { setToast(m); clearTimeout(window.__toast_t); window.__toast_t = setTimeout(() => setToast(''), 2000); };
+
+  // ── Rolling ───────────────────────────────────────────────────────────────
+  const [rolling, setRolling] = React.useState(false);
+  const roll = () => {
+    setRolling(true);
+    setTimeout(() => {
+      const m = generateDay(profile);
+      saveMenu(m);
+      setRolling(false);
+    }, 450);
+  };
+
+  // ── Swap single dish ──────────────────────────────────────────────────────
+  const swap = (id) => {
+    if (!menu) return;
+    const m = JSON.parse(JSON.stringify(menu));
+    if (m.sang === id) { m.sang = pickFrom('sang', [id], profile); }
+    else {
+      for (const meal of ['trua','toi']) {
+        const idx = m[meal].indexOf(id);
+        if (idx >= 0) {
+          const cat = ['man','rau','canh'][idx % 3];
+          m[meal][idx] = pickFrom(cat, [id], profile);
+        }
+      }
+    }
+    saveMenu(m);
+    flash('Đã đổi món khác 🔄');
+  };
+
+  // ── Favorites ─────────────────────────────────────────────────────────────
+  const toggleFav = (id) => {
+    const exists = favorites.some(f => f.id === id);
+    const next   = exists
+      ? favorites.filter(f => f.id !== id)
+      : [{ type:'dish', id, at:Date.now() }, ...favorites];
+    saveFavs(next);
+    flash(exists ? 'Đã bỏ khỏi yêu thích' : 'Đã lưu món yêu thích ❤️');
+  };
+  const saveDay = () => {
+    if (!menu) return;
+    const allIds = [menu.sang, ...menu.trua, ...menu.toi];
+    const titles = [menu.sang, menu.trua[0], menu.toi[0]].map(id => byId(id)?.t).filter(Boolean);
+    const entry  = { type:'day', date: menu.date || todayStr(), titles, menu: JSON.parse(JSON.stringify(menu)), at: Date.now() };
+    saveFavs([entry, ...favorites]);
+    flash('Đã lưu thực đơn hôm nay ❤️');
+  };
+  const removeFav = (idx) => { const f = [...favorites]; f.splice(idx, 1); saveFavs(f); };
+  const reuseDay  = (f)   => {
+    const m = JSON.parse(JSON.stringify(f.menu));
+    m.date  = todayStr();
+    saveMenu(m);
+    setRoute('home');
+    flash('Đã mở lại thực đơn này 😋');
+  };
+
+  // ── Onboarding done ───────────────────────────────────────────────────────
+  const handleOnboardingDone = (p) => {
+    saveProfile(p);
+    if (editProfile) { setEditProfile(false); setRoute('settings'); }
+    else             { setRoute('home'); }
+    flash('Đã lưu thông tin nhà mình! 🎉');
+  };
+
+  const handleReset = () => {
+    if (!confirm('Xoá toàn bộ dữ liệu và bắt đầu lại từ đầu?')) return;
+    Store.del(K_PROFILE); Store.del(K_FAV); Store.del(K_TODAY);
+    Store.del(K_PEXELS); Store.del(K_IMGCACHE);
+    setProfile(null); setFavorites([]); setMenu(null); setImgCache({});
+    setRoute('welcome');
+  };
+
+  const showTabs   = ['home','favorites','settings','search'].includes(route) && !editProfile;
+  const activeTab  = route;
+
+  const goTab = (key) => {
+    if      (key === 'home')      setRoute('home');
+    else if (key === 'favorites') setRoute('favorites');
+    else if (key === 'settings')  setRoute('settings');
+    else if (key === 'search')    setRoute('search');
+  };
+
+  return (
+    <div className="app">
+      <div className="topbar">
+        <img src="assets/logo-mark.svg" alt="Ăn Gì Đây?" />
+        <span className="name">Ăn Gì <b>Đây?</b></span>
+      </div>
+
+      {(route === 'welcome') && <WelcomeScreen onStart={() => setRoute('onboarding')} />}
+
+      {(route === 'onboarding' || editProfile) && (
+        <OnboardingScreen
+          initialDraft={editProfile ? profile : null}
+          onDone={handleOnboardingDone}
+        />
+      )}
+
+      {route === 'home' && profile && !editProfile && (
+        <HomeScreen
+          profile={profile}
+          menu={menu}
+          rolling={rolling}
+          onRoll={roll}
+          favorites={favorites}
+          onFav={toggleFav}
+          onSave={saveDay}
+          onSwap={swap}
+          imgCache={imgCache}
+          onImgCacheUpdate={setImgCache}
+        />
+      )}
+
+      {route === 'favorites' && !editProfile && (
+        <FavoritesScreen
+          favorites={favorites}
+          onRemove={removeFav}
+          onReuseDay={reuseDay}
+        />
+      )}
+
+      {route === 'settings' && profile && !editProfile && (
+        <SettingsScreen
+          profile={profile}
+          onEdit={() => setEditProfile(true)}
+          onReset={handleReset}
+        />
+      )}
+
+      {route === 'search' && profile && !editProfile && (
+        <SearchScreen
+          profile={profile}
+          favorites={favorites}
+          onFav={toggleFav}
+          imgCache={imgCache}
+          onImgCacheUpdate={setImgCache}
+        />
+      )}
+
+      {showTabs && (
+        <TabBar
+          active={activeTab}
+          onChange={goTab}
+          style={{ position:'fixed' }}
+          tabs={[
+            { key:'home',      icon:'home',     label:'Hôm nay' },
+            { key:'favorites', icon:'heart',    label:'Đã lưu' },
+            { key:'search',    icon:'basket',   label:'Tìm món' },
+            { key:'settings',  icon:'settings', label:'Cài đặt' },
+          ]}
+        />
+      )}
+
+      <div style={{ textAlign:'center', color:'var(--ink-soft)', fontSize:11.5, padding:'24px 0 8px', opacity:.7 }}>
+        Tạo bởi <strong style={{ color:'var(--ink-soft)' }}>Hailey Tran</strong> · Ăn Gì Đây? 🧡
+      </div>
+
+      <div className={'toast' + (toast ? ' show' : '')}>{toast}</div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

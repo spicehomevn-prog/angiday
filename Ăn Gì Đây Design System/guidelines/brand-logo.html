@@ -1,0 +1,35 @@
+<!-- @dsCard group="Brand" viewport="700x230" name="Logo" subtitle="Lift-the-lid mark, lockup, on-color & monochrome" -->
+<!doctype html><html><head><meta charset="utf-8"/><link rel="stylesheet" href="../styles.css"/>
+<style>
+  body{margin:0;font-family:var(--font-body);background:var(--card);padding:26px;color:var(--ink)}
+  .row{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+  .col{display:flex;flex-direction:column;align-items:center;gap:9px}
+  .nm{font-size:11px;color:var(--ink-soft)}
+  .mark{width:72px;height:72px}
+  .lock{display:flex;align-items:center;gap:12px}
+  .lock img{width:48px;height:48px}
+  .name{font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--red-deep);line-height:1}
+  .name b{color:var(--green)}
+  .swatch{width:72px;height:72px;border-radius:18px;display:grid;place-items:center}
+  .swatch img{width:42px;height:42px}
+  .onred{background:var(--red)}
+  .ondark{background:var(--ink)}
+  .onpaper{background:var(--paper-2);border:1px solid var(--line)}
+</style></head>
+<body>
+  <div class="row">
+    <div class="col"><img class="mark" src="../assets/logo-mark.svg" alt="mark"/><span class="nm">Primary mark</span></div>
+    <div class="col">
+      <div class="lock"><img src="../assets/logo-mark.svg" alt="logo"/><span class="name">Ăn Gì <b>Đây?</b></span></div>
+      <span class="nm">Horizontal lockup</span>
+    </div>
+    <div class="col">
+      <div style="display:flex;gap:12px">
+        <div class="swatch onred"><img src="../assets/logo-mark-white.svg" alt="on red"/></div>
+        <div class="swatch ondark"><img src="../assets/logo-mark-white.svg" alt="on dark"/></div>
+        <div class="swatch onpaper"><img src="../assets/logo-mark-ink.svg" alt="mono ink"/></div>
+      </div>
+      <span class="nm">On-color · monochrome</span>
+    </div>
+  </div>
+</body></html>

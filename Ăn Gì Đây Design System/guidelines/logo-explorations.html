@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ăn Gì Đây? — Logo explorations</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;background:var(--bg-gradient);background-attachment:fixed;font-family:var(--font-body);color:var(--ink);padding:40px 28px 64px}
+  h1{font-family:var(--font-display);color:var(--red-deep);font-size:26px;margin:0 0 4px}
+  .sub{color:var(--ink-soft);font-size:14px;margin:0 0 32px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:920px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:26px;display:flex;flex-direction:column;gap:18px}
+  .tag{font-weight:700;font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--red)}
+  .desc{color:var(--ink-soft);font-size:13px;line-height:1.5;margin:-6px 0 0}
+  .row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .mark{width:96px;height:96px;flex:none}
+  .lock{display:flex;align-items:center;gap:12px}
+  .lock .lm{width:46px;height:46px;flex:none}
+  .name{font-family:var(--font-display);font-weight:800;font-size:26px;color:var(--red-deep);line-height:1}
+  .name b{color:var(--green)}
+  .chips{display:flex;gap:10px;align-items:center}
+  .onred{background:var(--red);border-radius:16px;width:64px;height:64px;display:grid;place-items:center}
+  .ondark{background:var(--ink);border-radius:16px;width:64px;height:64px;display:grid;place-items:center}
+  .mini{width:30px;height:30px}
+</style>
+</head>
+<body>
+  <h1>Logo explorations</h1>
+  <p class="sub">Symbolic · minimalist · rounded to match Baloo 2. Pick one and I'll finalize it as the brand asset.</p>
+  <div class="grid">
+
+    <!-- 1. Bowl + question-mark steam -->
+    <div class="card">
+      <div class="tag">01 — Bữa hỏi · bowl + question steam</div>
+      <p class="desc">A bowl whose rising steam curls into a question mark — the name is literally a question: “what shall we eat?”. The single most on-the-nose symbol.</p>
+      <div class="row">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <!-- steam → question mark -->
+          <path d="M25.5 22 C25.5 14, 38.5 14, 38.5 20.5 C38.5 26, 32 25.5, 32 31" stroke="var(--green)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="37.5" r="2.4" fill="var(--green)"/>
+          <!-- bowl -->
+          <path d="M14 41 a18 14 0 0 0 36 0 Z" fill="var(--red)"/>
+          <path d="M11 41 L53 41" stroke="var(--red)" stroke-width="4.4" stroke-linecap="round"/>
+        </svg>
+        <div class="lock">
+          <svg class="lm" viewBox="0 0 64 64" fill="none">
+            <path d="M25.5 22 C25.5 14, 38.5 14, 38.5 20.5 C38.5 26, 32 25.5, 32 31" stroke="var(--green)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="32" cy="37.5" r="2.4" fill="var(--green)"/>
+            <path d="M14 41 a18 14 0 0 0 36 0 Z" fill="var(--red)"/>
+            <path d="M11 41 L53 41" stroke="var(--red)" stroke-width="4.4" stroke-linecap="round"/>
+          </svg>
+          <span class="name">Ăn Gì <b>Đây?</b></span>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="onred"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M25.5 22 C25.5 14, 38.5 14, 38.5 20.5 C38.5 26, 32 25.5, 32 31" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="37.5" r="2.4" fill="#fff"/>
+          <path d="M14 41 a18 14 0 0 0 36 0 Z" fill="#fff"/>
+          <path d="M11 41 L53 41" stroke="#fff" stroke-width="4.4" stroke-linecap="round"/>
+        </svg></div>
+        <div class="ondark"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M25.5 22 C25.5 14, 38.5 14, 38.5 20.5 C38.5 26, 32 25.5, 32 31" stroke="var(--gold)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="37.5" r="2.4" fill="var(--gold)"/>
+          <path d="M14 41 a18 14 0 0 0 36 0 Z" fill="var(--red)"/>
+          <path d="M11 41 L53 41" stroke="var(--red)" stroke-width="4.4" stroke-linecap="round"/>
+        </svg></div>
+      </div>
+    </div>
+
+    <!-- 2. Lift-the-lid reveal -->
+    <div class="card">
+      <div class="tag">02 — Mở nắp · the daily reveal</div>
+      <p class="desc">A pot with its lid lifting and a puff of steam — the little daily “what’s under the lid?” moment the app is built around. Friendly and kinetic.</p>
+      <div class="row">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <!-- steam -->
+          <path d="M28 13 q-3 3 0 6 M36 13 q-3 3 0 6" stroke="var(--green)" stroke-width="3.4" stroke-linecap="round"/>
+          <!-- lid (tilted) -->
+          <path d="M18 30 L46 24" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="48.5" cy="22.5" r="2.6" fill="var(--red)"/>
+          <!-- pot -->
+          <path d="M16 33 h32 v6 a6 6 0 0 1 -6 6 h-20 a6 6 0 0 1 -6 -6 Z" fill="var(--red)"/>
+          <path d="M13 33 h6 M45 33 h6" stroke="var(--red)" stroke-width="4.4" stroke-linecap="round"/>
+        </svg>
+        <div class="lock">
+          <svg class="lm" viewBox="0 0 64 64" fill="none">
+            <path d="M28 13 q-3 3 0 6 M36 13 q-3 3 0 6" stroke="var(--green)" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M18 30 L46 24" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+            <circle cx="48.5" cy="22.5" r="2.6" fill="var(--red)"/>
+            <path d="M16 33 h32 v6 a6 6 0 0 1 -6 6 h-20 a6 6 0 0 1 -6 -6 Z" fill="var(--red)"/>
+            <path d="M13 33 h6 M45 33 h6" stroke="var(--red)" stroke-width="4.4" stroke-linecap="round"/>
+          </svg>
+          <span class="name">Ăn Gì <b>Đây?</b></span>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="onred"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M28 13 q-3 3 0 6 M36 13 q-3 3 0 6" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M18 30 L46 24" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="48.5" cy="22.5" r="2.6" fill="#fff"/>
+          <path d="M16 33 h32 v6 a6 6 0 0 1 -6 6 h-20 a6 6 0 0 1 -6 -6 Z" fill="#fff"/>
+          <path d="M13 33 h6 M45 33 h6" stroke="#fff" stroke-width="4.4" stroke-linecap="round"/>
+        </svg></div>
+        <div class="ondark"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M28 13 q-3 3 0 6 M36 13 q-3 3 0 6" stroke="var(--gold)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M18 30 L46 24" stroke="var(--gold)" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="48.5" cy="22.5" r="2.6" fill="var(--gold)"/>
+          <path d="M16 33 h32 v6 a6 6 0 0 1 -6 6 h-20 a6 6 0 0 1 -6 -6 Z" fill="var(--red)"/>
+          <path d="M13 33 h6 M45 33 h6" stroke="var(--red)" stroke-width="4.4" stroke-linecap="round"/>
+        </svg></div>
+      </div>
+    </div>
+
+    <!-- 3. Bowl + chopsticks smile -->
+    <div class="card">
+      <div class="tag">03 — Vui miệng · bowl + chopsticks smile</div>
+      <p class="desc">A bowl read as a smile, with chopsticks tucked across — warmth and family at the table, abstracted into a face. The most “friendly” route.</p>
+      <div class="row">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <!-- chopsticks -->
+          <path d="M30 12 L40 30 M37 11 L45 30" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/>
+          <!-- bowl as smile -->
+          <path d="M13 30 a19 19 0 0 0 38 0 Z" fill="var(--red)"/>
+          <path d="M10 30 L54 30" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+          <!-- eyes / sparkle -->
+          <circle cx="25" cy="39" r="2.3" fill="#fff"/>
+          <circle cx="39" cy="39" r="2.3" fill="#fff"/>
+        </svg>
+        <div class="lock">
+          <svg class="lm" viewBox="0 0 64 64" fill="none">
+            <path d="M30 12 L40 30 M37 11 L45 30" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M13 30 a19 19 0 0 0 38 0 Z" fill="var(--red)"/>
+            <path d="M10 30 L54 30" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+            <circle cx="25" cy="39" r="2.3" fill="#fff"/>
+            <circle cx="39" cy="39" r="2.3" fill="#fff"/>
+          </svg>
+          <span class="name">Ăn Gì <b>Đây?</b></span>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="onred"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M30 12 L40 30 M37 11 L45 30" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <path d="M13 30 a19 19 0 0 0 38 0 Z" fill="#fff"/>
+          <path d="M10 30 L54 30" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="25" cy="39" r="2.3" fill="var(--red)"/>
+          <circle cx="39" cy="39" r="2.3" fill="var(--red)"/>
+        </svg></div>
+        <div class="ondark"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M30 12 L40 30 M37 11 L45 30" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M13 30 a19 19 0 0 0 38 0 Z" fill="var(--red)"/>
+          <path d="M10 30 L54 30" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="25" cy="39" r="2.3" fill="#fff"/>
+          <circle cx="39" cy="39" r="2.3" fill="#fff"/>
+        </svg></div>
+      </div>
+    </div>
+
+    <!-- 4. Bowl + breve diacritic -->
+    <div class="card">
+      <div class="tag">04 — Dấu Ă · bowl + Vietnamese breve</div>
+      <p class="desc">A bowl crowned by the breve diacritic from “Ăn” — steam and the unmistakable mark of written Vietnamese in one stroke. The most quietly clever.</p>
+      <div class="row">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <!-- breve (the ˘ over Ă) as steam -->
+          <path d="M24 18 a8 6 0 0 0 16 0" stroke="var(--green)" stroke-width="4.2" stroke-linecap="round"/>
+          <!-- bowl -->
+          <path d="M14 32 a18 15 0 0 0 36 0 Z" fill="var(--red)"/>
+          <path d="M11 32 L53 32" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+          <!-- a grain / dot inside -->
+          <circle cx="32" cy="40" r="2.4" fill="#fff"/>
+        </svg>
+        <div class="lock">
+          <svg class="lm" viewBox="0 0 64 64" fill="none">
+            <path d="M24 18 a8 6 0 0 0 16 0" stroke="var(--green)" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M14 32 a18 15 0 0 0 36 0 Z" fill="var(--red)"/>
+            <path d="M11 32 L53 32" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+            <circle cx="32" cy="40" r="2.4" fill="#fff"/>
+          </svg>
+          <span class="name">Ăn Gì <b>Đây?</b></span>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="onred"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M24 18 a8 6 0 0 0 16 0" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M14 32 a18 15 0 0 0 36 0 Z" fill="#fff"/>
+          <path d="M11 32 L53 32" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="32" cy="40" r="2.4" fill="var(--red)"/>
+        </svg></div>
+        <div class="ondark"><svg class="mini" viewBox="0 0 64 64" fill="none">
+          <path d="M24 18 a8 6 0 0 0 16 0" stroke="var(--gold)" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M14 32 a18 15 0 0 0 36 0 Z" fill="var(--red)"/>
+          <path d="M11 32 L53 32" stroke="var(--red)" stroke-width="4.6" stroke-linecap="round"/>
+          <circle cx="32" cy="40" r="2.4" fill="#fff"/>
+        </svg></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

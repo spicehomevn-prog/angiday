@@ -1,0 +1,134 @@
+<!-- @dsCard group="App" viewport="430x720" name="Ăn Gì Đây? — Mobile app" subtitle="Interactive recreation: welcome → onboarding → roll a menu → favorites" -->
+<!-- @startingPoint section="App" subtitle="Full mobile meal-planner flow" viewport="430x860" -->
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ăn Gì Đây? — App</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="dishes.js"></script>
+<style>
+  html,body{margin:0;height:100%}
+  body{background:#E7D6BF;display:grid;place-items:center;min-height:100vh;font-family:var(--font-body)}
+  /* phone frame */
+  .phone{width:430px;height:860px;background:var(--bg-gradient);border-radius:46px;border:11px solid #2c211b;
+    box-shadow:0 30px 70px rgba(60,30,10,.4),inset 0 0 0 2px rgba(255,255,255,.4);overflow:hidden;position:relative}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:30px;background:#2c211b;border-radius:0 0 18px 18px;z-index:60}
+  .scroll{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .scroll::-webkit-scrollbar{display:none}
+  .app{max-width:430px;margin:0 auto;padding:46px 16px 110px;min-height:100%}
+  .topbar{display:flex;align-items:center;justify-content:center;gap:9px;padding:8px 0 16px}
+  .topbar .logo{width:30px;height:30px;display:block}
+  .topbar .name{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--red-deep)}
+  .topbar .name b{color:var(--green)}
+  .agd-bob{animation:agd-bob 2.8s ease-in-out infinite}
+  .agd-pop{animation:agd-pop .35s ease}
+  .agd-shake{animation:agd-shake .5s ease}
+  .toast{position:absolute;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;transition:.25s;box-shadow:var(--shadow);z-index:70}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="scroll"><div id="root"></div></div>
+</div>
+<script src="screens.jsx" type="text/babel"></script>
+<script type="text/babel">
+  const { TabBar } = window.NGYDesignSystem_adcec4;
+
+  function App() {
+    const [route, setRoute] = React.useState('welcome');
+    const [profile, setProfile] = React.useState(null);
+    const [menu, setMenu] = React.useState(null);
+    const [rolling, setRolling] = React.useState(false);
+    const [favorites, setFavorites] = React.useState([]);
+    const [toast, setToast] = React.useState('');
+    const [editingProfile, setEditingProfile] = React.useState(false);
+
+    const flash = (m) => { setToast(m); clearTimeout(window.__t); window.__t = setTimeout(() => setToast(''), 1900); };
+
+    const roll = () => {
+      setRolling(true);
+      setTimeout(() => { setMenu(generateDay(profile)); setRolling(false); }, 450);
+    };
+    const swap = (id) => {
+      if (!menu) return;
+      const m = JSON.parse(JSON.stringify(menu));
+      if (m.sang === id) { m.sang = pickFrom('sang', [id], profile); }
+      else for (const meal of ['trua','toi']) {
+        const idx = m[meal].indexOf(id);
+        if (idx >= 0) m[meal][idx] = pickFrom(['man','rau','canh'][idx % 3], [id], profile);
+      }
+      setMenu(m);
+      flash('Đã đổi món khác 🔄');
+    };
+    const toggleFav = (id) => {
+      const exists = favorites.some(f => f.id === id);
+      setFavorites(exists ? favorites.filter(f => f.id !== id) : [{ type:'dish', id }, ...favorites]);
+      flash(exists ? 'Đã bỏ khỏi yêu thích' : 'Đã lưu món yêu thích ❤️');
+    };
+    const saveDay = () => {
+      if (!menu) return;
+      const titles = [menu.sang, menu.trua[0], menu.toi[0]].map(id => byId(id)?.t).filter(Boolean);
+      setFavorites([{ type:'day', date: new Date().toLocaleDateString('vi-VN'), titles, menu: JSON.parse(JSON.stringify(menu)) }, ...favorites]);
+      flash('Đã lưu thực đơn hôm nay ❤️');
+    };
+    const removeFav = (i) => { const f = [...favorites]; f.splice(i,1); setFavorites(f); };
+
+    const showTabs = ['home','favorites','settings'].includes(route) && !editingProfile;
+
+    return (
+      <div className="app">
+        <div className="topbar">
+          <img className="logo" src="../../assets/logo-mark.svg" alt="" />
+          <span className="name">Ăn Gì <b>Đây?</b></span>
+        </div>
+
+        {route === 'welcome' && <WelcomeScreen onStart={() => setRoute('onboarding')} />}
+
+        {(route === 'onboarding' || editingProfile) && (
+          <OnboardingScreen
+            initialDraft={editingProfile ? profile : null}
+            onDone={(p) => { setProfile(p); setEditingProfile(false); setRoute('home'); flash('Đã lưu thông tin nhà mình! 🎉'); }}
+          />
+        )}
+
+        {route === 'home' && profile && !editingProfile && (
+          <HomeScreen profile={profile} menu={menu} rolling={rolling} onRoll={roll}
+            favorites={favorites} onFav={toggleFav} onSave={saveDay} onSwap={swap} />
+        )}
+
+        {route === 'favorites' && !editingProfile && (
+          <FavoritesScreen favorites={favorites} onRemove={removeFav}
+            onReuseDay={(f) => { setMenu(JSON.parse(JSON.stringify(f.menu))); setRoute('home'); flash('Đã mở lại thực đơn 😋'); }} />
+        )}
+
+        {route === 'settings' && profile && !editingProfile && (
+          <SettingsScreen profile={profile}
+            onEdit={() => setEditingProfile(true)}
+            onReset={() => { setProfile(null); setFavorites([]); setMenu(null); setRoute('welcome'); }} />
+        )}
+
+        {showTabs && (
+          <TabBar active={route} onChange={setRoute} style={{ position:'absolute' }} tabs={[
+            { key:'home',      icon:'home',     label:'Hôm nay' },
+            { key:'favorites', icon:'heart',    label:'Đã lưu' },
+            { key:'settings',  icon:'settings', label:'Cài đặt' },
+          ]} />
+        )}
+
+        <div className={'toast' + (toast ? ' show' : '')}>{toast}</div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

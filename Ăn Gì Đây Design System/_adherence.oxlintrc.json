@@ -1,0 +1,312 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "components/food/**",
+              "components/forms/**",
+              "components/icons/**",
+              "components/navigation/**",
+              "ui_kits/app/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Baloo 2|Be Vietnam Pro))/i]",
+        "message": "Font not provided by the design system. Available: Baloo 2, Be Vietnam Pro."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|children|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: tone, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|block|children|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, block, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|padding|children|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: tone, padding, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Chip'] > JSXAttribute > JSXIdentifier[name!=/^(?:selected|tone|children|key|ref|className|style|children)$/]",
+        "message": "<Chip> doesn't accept that prop. Declared props: selected, tone, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DishCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|emoji|image|time|cost|vegetarian|favorite|open|onToggle|onFavorite|onSwap|ingredients|steps|videoUrl|tipNote|buyNote|servingNote|style|key|ref|className|style|children)$/]",
+        "message": "<DishCard> doesn't accept that prop. Declared props: name, emoji, image, time, cost, vegetarian, favorite, open, onToggle, onFavorite, onSwap, ingredients, steps, videoUrl, tipNote, buyNote, servingNote, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|strokeWidth|filled|key|ref|className|style|children)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: name, size, strokeWidth, filled."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MealHeader'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|title|key|ref|className|style|children)$/]",
+        "message": "<MealHeader> doesn't accept that prop. Declared props: icon, title."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProgressDots'] > JSXAttribute > JSXIdentifier[name!=/^(?:total|current|style|key|ref|className|style|children)$/]",
+        "message": "<ProgressDots> doesn't accept that prop. Declared props: total, current, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Stepper'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|onChange|min|max|unit|label|style|key|ref|className|style|children)$/]",
+        "message": "<Stepper> doesn't accept that prop. Declared props: value, onChange, min, max, unit, label, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TabItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:key|icon|label|key|ref|className|style|children)$/]",
+        "message": "<TabItem> doesn't accept that prop. Declared props: key, icon, label."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Chip": {
+        "replaces": []
+      },
+      "DishCard": {
+        "replaces": []
+      },
+      "Icon": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "MealHeader": {
+        "replaces": []
+      },
+      "ProgressDots": {
+        "replaces": []
+      },
+      "Stepper": {
+        "replaces": []
+      },
+      "TabItem": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent-primary",
+      "--accent-special",
+      "--accent-success",
+      "--accent-warning",
+      "--app-max",
+      "--app-pad-x",
+      "--bg-app",
+      "--bg-gradient",
+      "--border-hairline",
+      "--btn-shadow",
+      "--btn-shadow-active",
+      "--btn-shadow-hover",
+      "--card",
+      "--card-pad",
+      "--dur-base",
+      "--dur-expand",
+      "--dur-fast",
+      "--ease",
+      "--eyebrow-size",
+      "--eyebrow-track",
+      "--eyebrow-weight",
+      "--focus-ring",
+      "--font-body",
+      "--font-display",
+      "--fs-2xs",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-hero",
+      "--fs-lg",
+      "--fs-md",
+      "--fs-sm",
+      "--fs-stepper",
+      "--fs-xs",
+      "--fw-bold",
+      "--fw-extra",
+      "--fw-medium",
+      "--fw-regular",
+      "--fw-semibold",
+      "--glass-blur",
+      "--glass-fill",
+      "--gold",
+      "--gold-ink",
+      "--gold-soft",
+      "--green",
+      "--green-soft",
+      "--hit-min",
+      "--ink",
+      "--ink-soft",
+      "--lh-body",
+      "--lh-relaxed",
+      "--lh-snug",
+      "--lh-tight",
+      "--line",
+      "--paper",
+      "--paper-2",
+      "--plum",
+      "--plum-soft",
+      "--r",
+      "--r-md",
+      "--r-pill",
+      "--r-sm",
+      "--red",
+      "--red-deep",
+      "--red-deepest",
+      "--red-soft",
+      "--shadow",
+      "--shadow-sm",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--surface-card",
+      "--surface-sunken",
+      "--tabbar-max",
+      "--text-body",
+      "--text-muted",
+      "--text-on-accent",
+      "--tracking-display"
+    ],
+    "tokenKinds": {
+      "--paper": "color",
+      "--paper-2": "color",
+      "--card": "color",
+      "--red": "color",
+      "--red-deep": "color",
+      "--red-soft": "color",
+      "--red-deepest": "color",
+      "--green": "color",
+      "--green-soft": "color",
+      "--gold": "color",
+      "--gold-soft": "color",
+      "--gold-ink": "color",
+      "--plum": "color",
+      "--plum-soft": "color",
+      "--ink": "color",
+      "--ink-soft": "color",
+      "--line": "color",
+      "--bg-app": "color",
+      "--surface-card": "color",
+      "--surface-sunken": "color",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-on-accent": "font",
+      "--border-hairline": "color",
+      "--accent-primary": "color",
+      "--accent-success": "color",
+      "--accent-warning": "color",
+      "--accent-special": "color",
+      "--focus-ring": "color",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--fw-regular": "font",
+      "--fw-medium": "font",
+      "--fw-semibold": "font",
+      "--fw-bold": "font",
+      "--fw-extra": "font",
+      "--fs-hero": "spacing",
+      "--fs-h1": "spacing",
+      "--fs-h2": "spacing",
+      "--fs-h3": "spacing",
+      "--fs-stepper": "spacing",
+      "--fs-lg": "spacing",
+      "--fs-md": "spacing",
+      "--fs-sm": "spacing",
+      "--fs-xs": "spacing",
+      "--fs-2xs": "spacing",
+      "--eyebrow-size": "spacing",
+      "--eyebrow-track": "spacing",
+      "--eyebrow-weight": "font",
+      "--lh-tight": "font",
+      "--lh-snug": "font",
+      "--lh-body": "font",
+      "--lh-relaxed": "font",
+      "--tracking-display": "spacing",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--r": "spacing",
+      "--r-md": "spacing",
+      "--r-sm": "spacing",
+      "--r-pill": "spacing",
+      "--app-max": "spacing",
+      "--app-pad-x": "spacing",
+      "--tabbar-max": "spacing",
+      "--hit-min": "spacing",
+      "--card-pad": "spacing",
+      "--shadow": "shadow",
+      "--shadow-sm": "shadow",
+      "--btn-shadow": "shadow",
+      "--btn-shadow-hover": "shadow",
+      "--btn-shadow-active": "shadow",
+      "--bg-gradient": "other",
+      "--glass-fill": "color",
+      "--glass-blur": "other",
+      "--ease": "other",
+      "--dur-fast": "other",
+      "--dur-base": "other",
+      "--dur-expand": "other"
+    },
+    "fontFamilies": [
+      "Baloo 2",
+      "Be Vietnam Pro"
+    ]
+  }
+}

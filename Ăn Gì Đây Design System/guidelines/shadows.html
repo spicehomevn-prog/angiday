@@ -1,0 +1,17 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Shadows & chunky button" subtitle="Warm soft elevation + the hard-offset press shadow" -->
+<!doctype html><html><head><meta charset="utf-8"/><link rel="stylesheet" href="../styles.css"/>
+<style>
+  body{margin:0;font-family:var(--font-body);background:var(--bg-gradient);padding:26px;color:var(--ink)}
+  .row{display:flex;gap:30px;align-items:center}
+  .b{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .box{width:120px;height:60px;background:var(--card);border:1px solid var(--line);border-radius:18px}
+  .nm{font-size:12px;color:var(--ink-soft)}
+  .btn{background:var(--red);color:#fff;font-weight:700;font-size:14px;border-radius:999px;padding:13px 22px;box-shadow:0 7px 0 var(--red-deep)}
+</style></head>
+<body>
+  <div class="row">
+    <div class="b"><div class="box" style="box-shadow:var(--shadow)"></div><div class="nm">--shadow</div></div>
+    <div class="b"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="nm">--shadow-sm</div></div>
+    <div class="b"><div class="btn">Lắc thực đơn 🎲</div><div class="nm">--btn-shadow (hard offset)</div></div>
+  </div>
+</body></html>

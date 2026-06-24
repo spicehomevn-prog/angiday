@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Today's Menu" description="A daily Ăn Gì Đây? menu screen — balance badges + meal sections of dish cards" -->
+<helmet>
+  <script src="./ds-base.js"></script>
+  <style>
+    @keyframes agd-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+    body{margin:0}
+  </style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(120% 80% at 50% -10%, #FFF6EC 0%, transparent 55%),linear-gradient(180deg,#FBF3E8,#F4E7D6);background-attachment:fixed;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#3B2A20;padding:18px 16px 40px;box-sizing:border-box">
+  <div style="max-width:520px;margin:0 auto">
+
+    <!-- wordmark -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:9px;padding:8px 0 16px">
+      <img src="../../assets/logo-mark.svg" alt="" style="width:30px;height:30px;display:block" />
+      <span style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:22px;color:#C23E29">Ăn Gì <span style="color:#3F9A5B">Đây?</span></span>
+    </div>
+
+    <!-- greeting -->
+    <div style="margin-bottom:14px">
+      <div style="font-weight:700;font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:#E0533B">Thứ Ba · Hôm nay</div>
+      <h2 style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:700;font-size:25px;color:#C23E29;margin:2px 0 0">Chào nhà Bống! 👋</h2>
+      <div style="color:#9A8270;font-size:13px;margin-top:3px">4 người · 200.000đ/ngày</div>
+    </div>
+
+    <!-- menu card -->
+    <div style="background:#fff;border:1px solid #EDE0CF;border-radius:26px;box-shadow:0 14px 34px rgba(120,75,40,.14);padding:22px">
+
+      <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:16px">
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.Badge" tone="gold" hint-size="110px,30px"><x-import component-from-global-scope="NGYDesignSystem_adcec4.Icon" name="drumstick" size="{{ s14 }}" hint-size="14px,14px"></x-import> Đủ đạm</x-import>
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.Badge" tone="green" hint-size="120px,30px"><x-import component-from-global-scope="NGYDesignSystem_adcec4.Icon" name="leaf" size="{{ s14 }}" hint-size="14px,14px"></x-import> Có rau xanh</x-import>
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.Badge" tone="green" hint-size="100px,30px"><x-import component-from-global-scope="NGYDesignSystem_adcec4.Icon" name="soup" size="{{ s14 }}" hint-size="14px,14px"></x-import> Có canh</x-import>
+      </div>
+
+      <!-- sáng -->
+      <div style="margin-top:4px">
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.MealHeader" icon="sunrise" title="Bữa sáng" hint-size="100%,30px"></x-import>
+        <div style="margin-bottom:13px">
+          <x-import component-from-global-scope="NGYDesignSystem_adcec4.DishCard" name="Phở bò" emoji="🍜" image="https://commons.wikimedia.org/wiki/Special:FilePath/Two%20bowls%20of%20ph%E1%BB%9F%20b%C3%B2%20with%20various%20toppings.jpg?width=640" time="30 phút" cost="{{ two }}" video-url="https://www.youtube.com/results?search_query=ph%E1%BB%9F%20b%C3%B2%20c%C3%A1ch%20n%E1%BA%A5u" hint-size="100%,200px"></x-import>
+        </div>
+      </div>
+
+      <!-- trưa -->
+      <div style="margin-top:14px">
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.MealHeader" icon="sun" title="Bữa trưa" hint-size="100%,30px"></x-import>
+        <div style="margin-bottom:13px">
+          <x-import component-from-global-scope="NGYDesignSystem_adcec4.DishCard" name="Thịt kho hột vịt" emoji="🍳" image="https://commons.wikimedia.org/wiki/Special:FilePath/Caramelized%20Pork%20and%20Eggs.jpg?width=640" time="45 phút" cost="{{ two }}" video-url="https://www.youtube.com/results?search_query=th%E1%BB%8Bt%20kho%20h%E1%BB%99t%20v%E1%BB%8Bt%20c%C3%A1ch%20n%E1%BA%A5u" hint-size="100%,200px"></x-import>
+        </div>
+        <div style="margin-bottom:13px">
+          <x-import component-from-global-scope="NGYDesignSystem_adcec4.DishCard" name="Rau muống xào tỏi" emoji="🥬" image="https://commons.wikimedia.org/wiki/Special:FilePath/Rau%20mu%E1%BB%91ng%20x%C3%A0o%20t%E1%BB%8Fi.jpg?width=640" time="10 phút" cost="{{ one }}" vegetarian="{{ true }}" video-url="https://www.youtube.com/results?search_query=rau%20mu%E1%BB%91ng%20x%C3%A0o%20t%E1%BB%8Fi%20c%C3%A1ch%20n%E1%BA%A5u" hint-size="100%,200px"></x-import>
+        </div>
+        <div style="margin-bottom:13px">
+          <x-import component-from-global-scope="NGYDesignSystem_adcec4.DishCard" name="Canh chua cá" emoji="🍲" time="30 phút" cost="{{ two }}" video-url="https://www.youtube.com/results?search_query=canh%20chua%20c%C3%A1%20c%C3%A1ch%20n%E1%BA%A5u" hint-size="100%,200px"></x-import>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:20px">
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.Button" variant="soft" style="flex:1;gap:7px" hint-size="48%,48px"><x-import component-from-global-scope="NGYDesignSystem_adcec4.Icon" name="refresh" size="{{ s17 }}" hint-size="17px,17px"></x-import> Lắc lại</x-import>
+        <x-import component-from-global-scope="NGYDesignSystem_adcec4.Button" variant="primary" style="flex:1;gap:7px" hint-size="48%,48px"><x-import component-from-global-scope="NGYDesignSystem_adcec4.Icon" name="heart" size="{{ s17 }}" hint-size="17px,17px"></x-import> Lưu</x-import>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { one: 1, two: 2, true: true, s14: 14, s17: 17 };
+  }
+}
+</script>
+</body>
+</html>

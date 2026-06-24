@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Ăn Gì Đây">
+  <path d="M28 13 q-3 3 0 6 M36 13 q-3 3 0 6" stroke="#3B2A20" stroke-width="3.4" stroke-linecap="round"></path>
+  <path d="M18 30 L46 24" stroke="#3B2A20" stroke-width="4.6" stroke-linecap="round"></path>
+  <circle cx="48.5" cy="22.5" r="2.6" fill="#3B2A20"></circle>
+  <path d="M16 33 h32 v6 a6 6 0 0 1 -6 6 h-20 a6 6 0 0 1 -6 -6 Z" fill="#3B2A20"></path>
+  <path d="M13 33 h6 M45 33 h6" stroke="#3B2A20" stroke-width="4.4" stroke-linecap="round"></path>
+</svg>

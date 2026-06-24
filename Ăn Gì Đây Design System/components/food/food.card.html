@@ -1,0 +1,53 @@
+<!-- @dsCard group="Components" viewport="700x520" name="Food — DishCard & MealHeader" subtitle="Signature dish card (closed + open) and meal divider" -->
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin:0; background:var(--bg-gradient); font-family:var(--font-body); padding:24px; color:var(--ink); }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:660px; }
+  @media (max-width:560px){ .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { DishCard, MealHeader } = window.NGYDesignSystem_adcec4;
+  function Demo() {
+    const [fav, setFav] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
+    return (
+      <div>
+        <MealHeader icon="sun" title="Bữa trưa" />
+        <div className="grid">
+          <DishCard
+            name="Cá kho tộ" emoji="🐟" image="https://commons.wikimedia.org/wiki/Special:FilePath/C%C3%A1%20kho%20t%E1%BB%99.JPG?width=640" time="40 phút" cost={2}
+            favorite={fav} open={false} onFavorite={()=>setFav(!fav)}
+            servingNote="(cho 4 người)"
+            ingredients={["Cá (lóc/basa)","Nước mắm","Đường, nước màu","ớt, tiêu","Hành tím"]}
+            steps={["Ướp cá với nước mắm, nước màu, tiêu 20 phút.","Đặt cá vào nồi đất, kho lửa nhỏ.","Thêm chút nước, kho tới khi thấm và sánh.","Rắc tiêu, ớt trước khi tắt bếp."]}
+            videoUrl="https://www.youtube.com/results?search_query=c%C3%A1%20kho%20t%E1%BB%99%20c%C3%A1ch%20n%E1%BA%A5u"
+            tipNote="Cá giàu đạm và canxi, rất đưa cơm."
+          />
+          <DishCard
+            name="Phở bò" emoji="🍜" image="https://commons.wikimedia.org/wiki/Special:FilePath/Two%20bowls%20of%20ph%E1%BB%9F%20b%C3%B2%20with%20various%20toppings.jpg?width=640" time="30 phút" cost={2}
+            open={open} onToggle={()=>setOpen(!open)}
+            servingNote="(cho 4 người)"
+            ingredients={["Bánh phở","Thịt bò thái mỏng","Xương bò","Hành lá, ngò","Gừng, hành tây nướng"]}
+            steps={["Nướng thơm gừng và hành tây rồi ninh với xương ~1 tiếng.","Nêm muối vừa miệng, lọc lấy nước trong.","Trụng bánh phở, xếp thịt bò lên.","Chan nước dùng nóng, rắc hành ngò."]}
+            videoUrl="https://www.youtube.com/results?search_query=ph%E1%BB%9F%20b%C3%B2%20c%C3%A1ch%20n%E1%BA%A5u"
+            tipNote="Giàu đạm, nước dùng ấm bụng cho buổi sáng."
+          />
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

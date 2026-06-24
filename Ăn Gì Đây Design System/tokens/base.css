@@ -1,0 +1,46 @@
+/* ===========================================================================
+   Ăn Gì Đây? — Interaction states
+   The handful of rules that can't be expressed as inline React styles:
+   hover/active states for buttons and chips. Everything else lives in tokens.
+   =========================================================================== */
+
+/* ---- Button hover / press ---- */
+.agd-btn:active { transform: translateY(2px); }
+
+.agd-btn[data-variant="primary"]:hover {
+  background: var(--red-deep);
+  box-shadow: var(--btn-shadow-hover);
+}
+.agd-btn[data-variant="primary"]:active {
+  box-shadow: var(--btn-shadow-active);
+}
+.agd-btn[data-variant="ghost"]:hover  { background: #F8D2C4; }
+.agd-btn[data-variant="soft"]:hover   { background: #D4EAD8; }
+.agd-btn[data-variant="line"]:hover   { border-color: var(--red); }
+
+/* ---- Chip hover / select ---- */
+.agd-chip:hover { border-color: var(--red); }
+.agd-chip[data-tone="green"]:hover { border-color: var(--green); }
+
+/* ---- Tab hover ---- */
+.agd-tab:hover { background: var(--paper-2); }
+
+/* ---- Round mini button ---- */
+.agd-mini:hover { transform: scale(1.08); }
+
+/* ---- Stepper round buttons ---- */
+.agd-step-btn:hover { background: #F8D2C4; }
+
+/* ---- Input focus ---- */
+.agd-input:focus { border-color: var(--red); }
+
+/* ---- Focus ring (brand uses plum) ---- */
+.agd-focusable:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agd-btn, .agd-chip, .agd-mini, .agd-step-btn { transition: none !important; }
+}

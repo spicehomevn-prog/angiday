@@ -1,0 +1,43 @@
+<!-- @dsCard group="Components" viewport="700x260" name="Navigation — TabBar & ProgressDots" subtitle="Frosted bottom nav and onboarding step dots" -->
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin:0; background:var(--bg-gradient); font-family:var(--font-body); padding:24px; color:var(--ink); }
+  .lbl { font-size:11.5px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--red); margin:0 0 12px; }
+  .grp { margin-bottom:26px; max-width:420px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { TabBar, ProgressDots, Icon } = window.NGYDesignSystem_adcec4;
+  function Demo() {
+    const [tab, setTab] = React.useState('home');
+    return (
+      <div>
+        <div className="grp">
+          <p className="lbl">Progress dots — bước 3 / 6</p>
+          <ProgressDots total={6} current={2} />
+        </div>
+        <div className="grp">
+          <p className="lbl">Tab bar</p>
+          <TabBar floating={false} active={tab} onChange={setTab} tabs={[
+            { key:'home', icon:'home', label:'Hôm nay' },
+            { key:'favorites', icon:'heart', label:'Đã lưu' },
+            { key:'settings', icon:'settings', label:'Cài đặt' },
+          ]} />
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* ===========================================================================
+   Ăn Gì Đây? — Effects: shadows, the app background & motion
+   Shadows are warm (brown-tinted, never neutral grey). The signature button
+   uses a HARD offset shadow (no blur) so it looks like a chunky pressable
+   button that physically sinks on :active. Motion is playful but short.
+   =========================================================================== */
+:root {
+  /* ---- Soft elevation (warm brown tint) ---- */
+  --shadow:     0 14px 34px rgba(120, 75, 40, 0.14);  /* cards, tabbar, toast */
+  --shadow-sm:  0 5px 16px rgba(120, 75, 40, 0.10);   /* dish cards, minis */
+
+  /* ---- Chunky button shadows (hard offset, no blur) ---- */
+  --btn-shadow:         0 7px 0 var(--red-deep);    /* primary rest */
+  --btn-shadow-hover:   0 5px 0 var(--red-deepest); /* primary hover */
+  --btn-shadow-active:  0 3px 0 var(--red-deepest); /* primary pressed */
+
+  /* ---- Signature warm paper background ---- */
+  --bg-gradient:
+    radial-gradient(120% 80% at 50% -10%, #FFF6EC 0%, transparent 55%),
+    linear-gradient(180deg, var(--paper), var(--paper-2));  /* @kind other */
+
+  /* ---- Glass (frosted tabbar) ---- */
+  --glass-fill:   rgba(255, 255, 255, 0.86);  /* @kind color */
+  --glass-blur:   blur(12px);                  /* @kind other */
+
+  /* ---- Motion ---- */
+  --ease:           cubic-bezier(0.4, 0, 0.2, 1);  /* @kind other */
+  --dur-fast:       0.12s;   /* @kind other */ /* button press, chip select */
+  --dur-base:       0.25s;   /* @kind other */ /* toast, scrim fade */
+  --dur-expand:     0.35s;   /* @kind other */ /* recipe accordion */
+}
+
+/* ---- Keyframes used across the brand ---- */
+@keyframes agd-bob   { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-12px) rotate(3deg)} }
+@keyframes agd-pop   { 0%{transform:scale(.97); opacity:.5} 100%{transform:scale(1); opacity:1} }
+@keyframes agd-shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px) rotate(-2deg)} 40%{transform:translateX(7px) rotate(2deg)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+@keyframes agd-pulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(.94)} }
