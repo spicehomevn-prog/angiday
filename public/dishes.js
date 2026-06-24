@@ -1,10 +1,9 @@
 // Ăn Gì Đây? — Full dish catalogue (62 dishes across 4 categories)
-// img: Wikimedia Commons static URL (null = no static photo; imgQ used for Pexels)
-// imgQ: English Pexels search keyword for dynamic image loading
+// img: always null — all images loaded dynamically via Pexels (imgQ keyword)
+// imgQ: English Pexels search keyword (3–5 words for best accuracy)
 // yt:  YouTube cooking-instruction search link
 
 const ytSearch = (q) => 'https://www.youtube.com/results?search_query=' + encodeURIComponent('cách nấu ' + q);
-const wiki = (file) => 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(file) + '?width=640';
 
 window.AGD_DISHES = [
 
@@ -14,8 +13,8 @@ window.AGD_DISHES = [
 
   { id:'pho_bo', t:'Phở bò', e:'🍜', c:'sang', am:'viet', cp:2, cost:2, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:false, tduong:false, time:'30 phút',
-    img: wiki('Two bowls of phở bò with various toppings.jpg'),
-    imgQ: 'vietnamese pho bo beef noodle soup bowl',
+    img: null,
+    imgQ: 'pho bo beef noodle soup vietnamese',
     yt: ytSearch('phở bò'),
     nl:['Bánh phở','Thịt bò thái mỏng','Xương bò','Hành lá, ngò gai','Gừng, hành tây nướng','Nước mắm, muối'],
     cn:['Nướng thơm gừng và hành tây trên lửa trực tiếp rồi cho vào nồi xương, ninh ~1 tiếng.','Vớt bọt, nêm muối vừa miệng, lọc lấy nước trong.','Trụng bánh phở qua nước sôi, xếp thịt bò lên trên.','Chan nước dùng nóng, rắc hành ngò.'],
@@ -23,8 +22,8 @@ window.AGD_DISHES = [
 
   { id:'banh_mi_opla', t:'Bánh mì ốp la', e:'🥖', c:'sang', am:'viet', cp:1, cost:1, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:false, tduong:false, time:'10 phút',
-    img: wiki('Bánh mì và ly sữa bữa sáng (2).jpg'),
-    imgQ: 'vietnamese banh mi fried egg sunny side bread',
+    img: null,
+    imgQ: 'banh mi fried egg vietnamese sandwich',
     yt: ytSearch('bánh mì ốp la'),
     nl:['1 ổ bánh mì','2 trứng gà','Dưa leo','Xì dầu, tiêu','Rau thơm (ngò, húng)'],
     cn:['Ốp la trứng lòng đào với chút dầu ăn, lửa vừa.','Rưới ít xì dầu và tiêu lên trứng khi gần chín.','Cắt bánh mì dọc, kẹp trứng cùng dưa leo và rau thơm.'],
@@ -32,8 +31,8 @@ window.AGD_DISHES = [
 
   { id:'chao_thit', t:'Cháo thịt bằm', e:'🥣', c:'sang', am:'viet', cp:1, cost:1, veg:false,
     chay:false, ankieng:true, itgv:true, canxi:false, tduong:false, time:'25 phút',
-    img: wiki('Congee.jpg'),
-    imgQ: 'vietnamese rice congee pork porridge bowl',
+    img: null,
+    imgQ: 'rice congee pork porridge bowl',
     yt: ytSearch('cháo thịt bằm'),
     nl:['½ chén gạo tẻ','200g thịt heo bằm','Hành lá','Gừng','Tiêu, hạt nêm'],
     cn:['Nấu gạo với 6 chén nước, đậy nắp hé cho nhừ thành cháo (~15 phút).','Xào sơ thịt bằm với hành tím, nêm nhạt.','Cho thịt vào cháo, khuấy đều, nêm hạt nêm vừa miệng.','Rắc hành lá và tiêu khi ăn.'],
@@ -41,8 +40,8 @@ window.AGD_DISHES = [
 
   { id:'bun_rieu', t:'Bún riêu cua', e:'🍲', c:'sang', am:'viet', cp:2, cost:2, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:true, tduong:false, time:'35 phút',
-    img: wiki('Bún riêu.jpg'),
-    imgQ: 'vietnamese bun rieu crab tomato noodle soup',
+    img: null,
+    imgQ: 'bun rieu crab tomato noodle soup',
     yt: ytSearch('bún riêu cua'),
     nl:['Bún tươi','200g cua đồng xay (hoặc gạch cua đóng hộp)','Cà chua chín','Đậu hũ','Mắm tôm, nước mắm'],
     cn:['Lọc nước cua qua rây, đun sôi cho riêu nổi lên thành mảng.','Phi hành tím, cho cà chua vào xào chín mềm, thêm vào nồi.','Nêm nước mắm vừa ăn, cho đậu hũ chiên vào.','Chan lên bún, ăn kèm rau sống, giá, kinh giới.'],
@@ -50,8 +49,8 @@ window.AGD_DISHES = [
 
   { id:'com_tam', t:'Cơm tấm sườn nướng', e:'🍱', c:'sang', am:'viet', cp:2, cost:2, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:false, tduong:false, time:'30 phút',
-    img: wiki('Com tam.jpg'),
-    imgQ: 'vietnamese com tam broken rice grilled pork chop',
+    img: null,
+    imgQ: 'com tam broken rice grilled pork vietnamese',
     yt: ytSearch('cơm tấm sườn nướng'),
     nl:['Cơm tấm','2 miếng sườn non','Dưa leo, cà chua','Mỡ hành (hành lá + dầu nóng)','Nước mắm chua ngọt pha sẵn'],
     cn:['Ướp sườn với tỏi băm, đường, nước mắm, sả, ít màu điều — 30 phút.','Nướng sườn trên vỉ hoặc chảo gang đến vàng đều hai mặt.','Pha nước mắm chua ngọt: nước mắm + đường + chanh + tỏi ớt.','Dọn cơm cùng sườn, rưới mỡ hành, trang trí rau.'],
@@ -59,8 +58,8 @@ window.AGD_DISHES = [
 
   { id:'yen_mach', t:'Yến mạch sữa trái cây', e:'🥣', c:'sang', am:'tay', cp:1, cost:1, veg:true,
     chay:true, ankieng:true, itgv:false, canxi:true, tduong:false, time:'5 phút',
-    img: wiki('Overnight oats.jpg'),
-    imgQ: 'overnight oats fruit bowl healthy breakfast',
+    img: null,
+    imgQ: 'overnight oats fruit bowl breakfast',
     yt: ytSearch('yến mạch sữa trái cây overnight oats'),
     nl:['½ chén yến mạch cán dẹt','200ml sữa tươi không đường','1 muỗng hạt chia','Chuối, việt quất hoặc trái cây tươi bất kỳ'],
     cn:['Trộn yến mạch với sữa và hạt chia trong hũ/tô.','Ngâm 5 phút (hoặc để tủ lạnh qua đêm để đặc hơn).','Cắt trái cây tươi, xếp lên trên, thưởng thức.'],
@@ -145,8 +144,8 @@ window.AGD_DISHES = [
 
   { id:'thit_kho_trung', t:'Thịt kho hột vịt', e:'🍳', c:'man', am:'viet', cp:2, cost:2, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:false, tduong:false, time:'45 phút',
-    img: wiki('Caramelized Pork and Eggs.jpg'),
-    imgQ: 'vietnamese caramelized braised pork belly duck eggs coconut water',
+    img: null,
+    imgQ: 'braised pork belly eggs caramel vietnamese',
     yt: ytSearch('thịt kho hột vịt nước dừa'),
     nl:['500g thịt ba chỉ cắt khối','4 trứng vịt luộc bóc vỏ','1 trái dừa tươi lấy nước','3 muỗng nước mắm','Hành tím, đường, nước màu'],
     cn:['Ướp thịt với nước mắm, đường, hành tím băm — để 20 phút.','Thắng đường thành nước màu cánh gián, cho thịt vào xào săn.','Đổ nước dừa xâm xấp, cho trứng vào, kho lửa nhỏ 25–30 phút.','Kho tới khi thịt mềm, nước sánh lại và bóng đẹp.'],
@@ -154,8 +153,8 @@ window.AGD_DISHES = [
 
   { id:'ca_kho_to', t:'Cá kho tộ', e:'🐟', c:'man', am:'viet', cp:2, cost:2, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:true, tduong:false, time:'40 phút',
-    img: wiki('Cá kho tộ.JPG'),
-    imgQ: 'vietnamese braised fish clay pot caramelized dark sauce',
+    img: null,
+    imgQ: 'braised fish clay pot caramel sauce asian',
     yt: ytSearch('cá kho tộ'),
     nl:['500g cá lóc hoặc cá basa','3 muỗng nước mắm','2 muỗng đường, nước màu','Ớt, tiêu, hành tím'],
     cn:['Ướp cá với nước mắm, nước màu, tiêu — 20 phút.','Đặt cá vào nồi đất (tộ), xếp hành tím và ớt lên.','Thêm chút nước, kho lửa nhỏ đến khi nước cạn và sánh bám vào cá.','Rắc tiêu và ớt trước khi tắt bếp.'],
@@ -172,8 +171,8 @@ window.AGD_DISHES = [
 
   { id:'suon_xao_chuangot', t:'Sườn xào chua ngọt', e:'🍖', c:'man', am:'viet', cp:2, cost:2, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:false, tduong:false, time:'35 phút',
-    img: wiki('Sweet and sour pork.jpg'),
-    imgQ: 'sweet sour pork ribs tomato pineapple vietnamese',
+    img: null,
+    imgQ: 'sweet sour pork ribs pineapple tomato',
     yt: ytSearch('sườn xào chua ngọt'),
     nl:['500g sườn non chặt khúc','2 cà chua','Dứa thái miếng','3 muỗng giấm hoặc nước me','Đường, tỏi, ớt chuông'],
     cn:['Chiên sơ sườn cho vàng đều, vớt ra để ráo.','Phi tỏi thơm, cho cà chua xào chín mềm.','Nêm giấm, đường tạo vị chua ngọt; cho sườn và dứa vào rim.','Thêm ớt chuông, đảo đều và tắt bếp.'],
@@ -339,8 +338,8 @@ window.AGD_DISHES = [
 
   { id:'rau_muong_xao_toi', t:'Rau muống xào tỏi', e:'🥬', c:'rau', am:'viet', cp:1, cost:1, veg:true,
     chay:true, ankieng:false, itgv:false, canxi:false, tduong:false, time:'10 phút',
-    img: wiki('Rau muống xào tỏi.jpg'),
-    imgQ: 'stir fried water spinach morning glory garlic vietnamese',
+    img: null,
+    imgQ: 'stir fried water spinach garlic wok',
     yt: ytSearch('rau muống xào tỏi'),
     nl:['1 bó rau muống nhặt sạch','4 tép tỏi đập dập','Dầu ăn','Hạt nêm'],
     cn:['Đun dầu nóng già, cho tỏi vào phi vàng thơm.','Cho rau muống vào đảo lửa lớn liên tục.','Nêm hạt nêm vừa miệng, vớt ra ngay khi rau vừa xanh (khoảng 3 phút).'],
@@ -470,8 +469,8 @@ window.AGD_DISHES = [
 
   { id:'canh_rau_ngot', t:'Canh rau ngót thịt bằm', e:'🥬', c:'canh', am:'viet', cp:1, cost:1, veg:false,
     chay:false, ankieng:false, itgv:false, canxi:true, tduong:false, time:'15 phút',
-    img: wiki('Rau ngót.jpg'),
-    imgQ: 'vietnamese rau ngot soup ground pork clear broth',
+    img: null,
+    imgQ: 'clear pork soup green leaves vietnamese',
     yt: ytSearch('canh rau ngót thịt bằm'),
     nl:['1 bó rau ngót nhặt lá','150g thịt heo bằm','Hạt nêm','Hành tím băm'],
     cn:['Xào sơ thịt bằm với hành tím cho thơm.','Thêm 3 chén nước, đun sôi.','Cho rau ngót vào, đảo đều, nêm hạt nêm vừa ăn.','Tắt bếp ngay khi rau vừa xanh mướt để giữ vitamin.'],

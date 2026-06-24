@@ -48,6 +48,7 @@
   --font-body:"Be Vietnam Pro",system-ui,-apple-system,sans-serif;
   --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-extra:800;
   --fs-hero:33px; --fs-h1:25px; --fs-h2:22px; --fs-h3:17px;
+  --fs-stepper:69px;
   --fs-lg:16px; --fs-md:15px; --fs-sm:14px; --fs-xs:13px; --fs-2xs:11.5px;
   --eyebrow-size:11.5px; --eyebrow-track:1.4px; --eyebrow-weight:700;
   --lh-tight:1.1; --lh-snug:1.45; --lh-body:1.5; --lh-relaxed:1.55;
@@ -136,6 +137,12 @@ body {
 <!-- App entry: routing + localStorage persistence -->
 <script type="text/babel">
 const { TabBar } = window.NGYDesignSystem_adcec4;
+
+// Clear stale image cache from old Wikimedia URLs (one-time migration)
+if (!localStorage.getItem('angiday:imgcache_v2')) {
+  localStorage.removeItem('angiday:imgcache');
+  localStorage.setItem('angiday:imgcache_v2', '1');
+}
 
 function App() {
   // ── Persistent state ──────────────────────────────────────────────────────

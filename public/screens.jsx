@@ -38,9 +38,10 @@ const Store = {
 
 // ── Pexels image loader ───────────────────────────────────────────────────────
 async function fetchPexelsImg(query, directKey) {
-  // Try Netlify proxy first (works on production without exposing the key)
+  const withTimeout = (ms) => { const c = new AbortController(); setTimeout(() => c.abort(), ms); return c.signal; };
+  // Try Netlify proxy first (server-side key, works for all visitors)
   try {
-    const r = await fetch(`/.netlify/functions/pexels?query=${encodeURIComponent(query)}`);
+    const r = await fetch(`/.netlify/functions/pexels?query=${encodeURIComponent(query)}`, { signal: withTimeout(6000) });
     if (r.ok) {
       const d = await r.json();
       if (d.photos?.[0]?.src?.large2x) return d.photos[0].src.large2x;
@@ -50,7 +51,7 @@ async function fetchPexelsImg(query, directKey) {
   if (!directKey) return null;
   try {
     const r = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`, {
-      headers: { Authorization: directKey },
+      headers: { Authorization: directKey }, signal: withTimeout(6000),
     });
     if (!r.ok) return null;
     const d = await r.json();
