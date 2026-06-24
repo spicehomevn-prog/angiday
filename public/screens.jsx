@@ -430,9 +430,19 @@ function HomeScreen({ profile, menu, rolling, onRoll, favorites, onFav, onSave, 
 }
 
 // ── Favorites ─────────────────────────────────────────────────────────────────
-function FavoritesScreen({ favorites, onRemove, onReuseDay }) {
+function FavoritesScreen({ favorites, onRemove, onReuseDay, profile, imgCache, onFav, onImgCacheUpdate }) {
   const days   = favorites.filter(f => f.type === 'day');
   const dishes = favorites.filter(f => f.type === 'dish');
+  const [open, setOpen] = React.useState({});
+
+  const toggleOpen = (id) => setOpen(o => ({ ...o, [id]: !o[id] }));
+
+  React.useEffect(() => {
+    const openIds = dishes.filter(f => open[f.id]).map(f => f.id);
+    if (!openIds.length) return;
+    const pexelsKey = Store.get(K_PEXELS) || '';
+    loadDishImages(openIds, pexelsKey, imgCache || {}, onImgCacheUpdate || (() => {}));
+  }, [open]);
 
   return (
     <div>
@@ -459,7 +469,7 @@ function FavoritesScreen({ favorites, onRemove, onReuseDay }) {
               </div>
               <div style={{ display:'flex', gap:6, flexShrink:0 }}>
                 {onReuseDay && (
-                  <button style={miniBtn} title="Xem lại" onClick={() => onReuseDay(f)}>
+                  <button style={miniBtn} title="Mở lại thực đơn" onClick={() => onReuseDay(f)}>
                     <Icon name="refresh" size={15} />
                   </button>
                 )}
@@ -472,17 +482,47 @@ function FavoritesScreen({ favorites, onRemove, onReuseDay }) {
 
           {dishes.map((f, i) => {
             const d = byId(f.id);
+            const isOpen = !!open[f.id];
             return (
-              <div key={i} style={favRow}>
-                <div>
-                  <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:15 }}>
-                    {d?.e} {d?.t}
+              <div key={i}>
+                <div style={favRow}>
+                  <div style={{ flex:1, minWidth:0 }}>
+                    <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:15 }}>
+                      {d?.e} {d?.t}
+                    </div>
+                    <div style={{ fontSize:12.5, color:'var(--ink-soft)', marginTop:2 }}>Món ăn yêu thích</div>
                   </div>
-                  <div style={{ fontSize:12.5, color:'var(--ink-soft)', marginTop:2 }}>Món ăn yêu thích</div>
+                  <div style={{ display:'flex', gap:6, flexShrink:0 }}>
+                    <button style={{ ...miniBtn, background: isOpen ? 'var(--red-soft)' : 'var(--paper)' }} title="Mở lại món" onClick={() => toggleOpen(f.id)}>
+                      <Icon name="play" size={15} style={{ color: isOpen ? 'var(--red)' : 'inherit' }} />
+                    </button>
+                    <button style={miniBtn} title="Xoá" onClick={() => onRemove(favorites.indexOf(f))}>
+                      <Icon name="trash" size={15} />
+                    </button>
+                  </div>
                 </div>
-                <button style={miniBtn} title="Xoá" onClick={() => onRemove(favorites.indexOf(f))}>
-                  <Icon name="trash" size={15} />
-                </button>
+                {isOpen && d && (
+                  <div style={{ marginBottom:10 }}>
+                    <DishCard
+                      name={d.t}
+                      emoji={d.e}
+                      image={(imgCache && imgCache[d.id] !== undefined) ? imgCache[d.id] : d.img}
+                      time={d.time}
+                      cost={d.cost}
+                      vegetarian={d.chay}
+                      favorite={true}
+                      open={true}
+                      onToggle={() => toggleOpen(f.id)}
+                      onFavorite={() => onFav && onFav(d.id)}
+                      servingNote={profile ? `cho ${profile.people} người` : ''}
+                      ingredients={d.nl}
+                      steps={d.cn}
+                      videoUrl={d.yt}
+                      tipNote={d.dd}
+                    />
+                    <MacroBar dishId={d.id} />
+                  </div>
+                )}
               </div>
             );
           })}
