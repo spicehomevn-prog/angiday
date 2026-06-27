@@ -506,7 +506,6 @@ const DISHES=[
   {id:'canh_bau_tom',t:'Canh bầu nấu tôm',e:'🍵',c:'canh',am:'viet',cp:1,chay:false,canxi:true,ankieng:true,tg:'15 phút',g:['hat_nem','hanh'],nl:['Bầu','Tôm tươi','Hành lá','Hạt nêm'],cn:['Giã sơ tôm cho ngọt nước.','Nấu tôm với nước sôi.','Cho bầu vào nấu mềm, rắc hành.'],dd:'Ngọt thanh, ít calo, bổ sung canxi.'}
 ];
 
-const IMG_Q={pho_bo:'vietnamese pho beef noodle soup',banh_mi_opla:'banh mi fried egg sandwich',chao_thit:'rice porridge congee bowl',bun_rieu:'vietnamese crab noodle soup',com_tam:'vietnamese broken rice grilled pork',yen_mach:'oatmeal fruit breakfast bowl',xoi_dau_xanh:'sticky rice mung bean',banh_cuon:'vietnamese steamed rice rolls',sup_ga:'chicken vegetable soup',bun_chay:'vegetarian stir fried noodles',thit_kho_trung:'braised pork egg caramel',ca_kho_to:'vietnamese braised fish clay pot',ga_kho_gung:'braised chicken ginger',suon_xao_chuangot:'sweet sour pork ribs',tom_rim:'caramelized shrimp dish',trung_chien_thit:'vietnamese omelette',thit_luoc:'boiled pork belly slices',ca_hap_gung:'steamed fish ginger',bo_xao_hanhtay:'beef stir fry onion',ga_hap_la_chanh:'steamed chicken',dauhu_sot_ca:'tofu tomato sauce',dauhu_sa_ot:'fried tofu lemongrass chili',nam_kho_tieu:'braised mushrooms pepper',rau_muong_xao_toi:'stir fried water spinach garlic',cai_thia_xao:'stir fried bok choy',su_su_luoc:'boiled chayote vegetables',ca_tim_mohanh:'grilled eggplant scallion',dau_que_xao:'stir fried green beans',rau_lang_luoc:'boiled green vegetables',nam_xao_cai:'stir fried mushrooms greens',carot_suhao_luoc:'steamed carrot broccoli',canh_chua_ca:'vietnamese sour fish soup',canh_rau_ngot:'green vegetable soup',canh_bidao_tom:'winter melon soup shrimp',canh_cai_ca:'mustard greens fish soup',canh_rongbien_dauhu:'seaweed tofu soup',canh_chua_chay:'vegetarian sour soup',canh_raucu_thapcam:'mixed vegetable soup',canh_mongtoi_cua:'malabar spinach soup',canh_bau_tom:'bottle gourd shrimp soup'};
 
 /* ===================== STORAGE ===================== */
 const Store={
@@ -787,7 +786,7 @@ async function loadDishImage(id){
   if(imgCache[id]&&imgCache[id].url){applyCover(el,imgCache[id]);return;}
   el.classList.add('loading');
   try{
-    const q=encodeURIComponent((IMG_Q[id]||byId(id).t)+' food');
+    const q=encodeURIComponent(byId(id).t);  // tìm ảnh theo tên món tiếng Việt
     // Use server-side Netlify proxy (PEXELS_API_KEY env var)
     let r=await fetch(`/.netlify/functions/pexels?query=${q}`);
     // Fallback: direct API with user-supplied key (Settings screen)
@@ -916,8 +915,11 @@ function formatVND(n){return (n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 /* ===================== INIT ===================== */
+const IMG_CACHE_VER='vi-v1';
 (async function(){
   document.getElementById('welcome-foot').textContent='Thông tin được lưu trên thiết bị của bạn cho những lần sau.';
+  // Flush old image cache if keywords changed
+  if(Store.get('angiday:imgver')!==IMG_CACHE_VER){Store.set('angiday:imgver',IMG_CACHE_VER);Store.del(K_IMG);}
   profile=Store.get(K_PROFILE);
   pexelsKey=Store.get(K_KEY)||'';
   imgCache=Store.get(K_IMG)||{};
