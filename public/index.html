@@ -710,12 +710,16 @@ function loadAllImages(menu){
 async function loadDishImage(id){
   const el=document.getElementById('cover-'+id);if(!el)return;
   if(imgCache[id]&&imgCache[id].url){applyCover(el,imgCache[id]);return;}
-  if(!pexelsKey||pexelsDisabled)return;
   el.classList.add('loading');
   try{
     const q=encodeURIComponent((IMG_Q[id]||byId(id).t)+' food');
-    const r=await fetch(`https://api.pexels.com/v1/search?query=${q}&orientation=landscape&per_page=3`,{headers:{Authorization:pexelsKey}});
-    if(r.status===401){pexelsDisabled=true;toast('API key chưa đúng, kiểm tra lại nhé');throw 0;}
+    // Use server-side Netlify proxy (PEXELS_API_KEY env var)
+    let r=await fetch(`/.netlify/functions/pexels?query=${q}`);
+    // Fallback: direct API with user-supplied key (Settings screen)
+    if(!r.ok&&pexelsKey&&!pexelsDisabled){
+      r=await fetch(`https://api.pexels.com/v1/search?query=${q}&orientation=landscape&per_page=3`,{headers:{Authorization:pexelsKey}});
+      if(r.status===401){pexelsDisabled=true;toast('API key chưa đúng, kiểm tra lại nhé');}
+    }
     if(!r.ok)throw 0;
     const data=await r.json();const p=(data.photos||[])[0];
     if(p){const rec={url:(p.src&&(p.src.large||p.src.medium))||'',by:p.photographer||'',link:p.url||''};imgCache[id]=rec;Store.set(K_IMG,imgCache);applyCover(el,rec);}
@@ -776,10 +780,10 @@ function reuseDay(i){const f=favorites[i];if(!f||!f.menu)return;today=JSON.parse
 
 /* ===================== SETTINGS ===================== */
 function renderSettings(){
-  const on=!!pexelsKey&&!pexelsDisabled;
+  const on=!pexelsDisabled;
   const pill=document.getElementById('img-status');
   pill.className='status-pill '+(on?'on':'off');
-  pill.textContent=on?'Đang bật ảnh thật':'Đang dùng ảnh placeholder';
+  pill.textContent=on?'Đang bật ảnh thật':'Tạm thời không tải được ảnh';
   document.getElementById('in-key').value=pexelsKey||'';
   if(profile){
     const dietTxt=(profile.diet||[]).filter(k=>k!=='none').map(k=>DIETS.find(d=>d.k===k)?.n).filter(Boolean).join(', ')||'không';
