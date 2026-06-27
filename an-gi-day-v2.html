@@ -367,7 +367,7 @@ function icon(name,size=20,sw=2,filled=false){
   const inner=ICONS[name]||'';
   const f=filled?'currentColor':'none';
   const s=filled?'none':'currentColor';
-  return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;flex:none">${inner}</svg>`;
+  return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;flex:none;pointer-events:none">${inner}</svg>`;
 }
 
 /* Init static icons */
@@ -478,6 +478,8 @@ function startOnboarding(){
 }
 function editProfile(){
   draft=JSON.parse(JSON.stringify(profile));
+  draft.nguoi=parseInt(draft.nguoi)||4;
+  draft.ngansach=parseInt(draft.ngansach)||200000;
   if(!draft.diet||!draft.diet.length) draft.diet=['none'];
   onbStep=0; show('onboarding'); renderStep();
 }
@@ -522,7 +524,7 @@ function renderStep(){
   c.innerHTML=html;
   if(step==='ten'){const i=document.getElementById('in-ten');i&&i.focus();}
 }
-function bumpNguoi(d){draft.nguoi=Math.max(1,Math.min(20,draft.nguoi+d));document.getElementById('nguoi-val').textContent=draft.nguoi;}
+function bumpNguoi(d){draft.nguoi=Math.max(1,Math.min(20,(parseInt(draft.nguoi)||4)+d));document.getElementById('nguoi-val').textContent=draft.nguoi;}
 function setBudget(v){draft.ngansach=v;document.getElementById('in-ngansach').value=formatVND(v);}
 function onBudgetInput(el){const n=parseInt(el.value.replace(/\D/g,''))||0;draft.ngansach=n;el.value=formatVND(n);}
 function toggle(f,v,el){const a=draft[f];const i=a.indexOf(v);if(i>=0){if(a.length>1)a.splice(i,1);}else a.push(v);el.classList.toggle('sel',draft[f].includes(v));}
