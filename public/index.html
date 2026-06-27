@@ -190,6 +190,11 @@
   .day-actions{display:flex; gap:10px; margin-top:20px}
   .day-actions .btn{flex:1}
 
+  /* Video button */
+  .video-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:12px 16px;border-radius:var(--r-pill);background:var(--ink);color:#fff;font-family:var(--font-body);font-weight:700;font-size:14px;text-decoration:none;transition:filter var(--dur-fast)}
+  .video-btn:hover{filter:brightness(1.35)}
+  .play-ic{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--yellow);color:var(--ink);flex:none}
+
   /* Macro bar */
   .macro-row{display:flex; background:var(--paper-2); border:1px solid var(--line); border-radius:var(--r-sm); padding:8px 10px 5px; margin:10px 0 4px}
   .macro-item{flex:1; text-align:center}
@@ -507,6 +512,72 @@ const DISHES=[
 ];
 
 
+/* ===================== ẢNH & VIDEO KEYWORDS ===================== */
+const IMG_Q={
+  pho_bo:'pho bo beef noodle soup vietnamese',
+  banh_mi_opla:'banh mi fried egg vietnamese sandwich',
+  chao_thit:'rice congee pork porridge bowl',
+  bun_rieu:'bun rieu crab tomato noodle soup',
+  com_tam:'com tam broken rice grilled pork vietnamese',
+  yen_mach:'overnight oats fruit bowl breakfast',
+  xoi_dau_xanh:'vietnamese sticky rice mung bean xoi green',
+  banh_cuon:'vietnamese banh cuon steamed rice roll pork mushroom',
+  sup_ga:'vietnamese chicken vegetable soup clear broth egg drop',
+  bun_chay:'vietnamese vegetarian stir fried rice noodles tofu mushroom',
+  thit_kho_trung:'braised pork belly eggs caramel vietnamese',
+  ca_kho_to:'braised fish clay pot caramel sauce asian',
+  ga_kho_gung:'vietnamese braised ginger chicken caramelized fish sauce',
+  suon_xao_chuangot:'sweet sour pork ribs pineapple tomato',
+  tom_rim:'vietnamese caramelized shrimp sweet salty stir fry',
+  trung_chien_thit:'vietnamese pork omelette fried egg minced pork pan',
+  thit_luoc:'boiled pork belly vietnamese sliced fresh herbs dipping',
+  ca_hap_gung:'steamed whole fish ginger scallion soy sauce chinese style',
+  bo_xao_hanhtay:'beef stir fry onion oyster sauce vietnamese',
+  ga_hap_la_chanh:'steamed chicken lemon lime leaves lemongrass vietnamese salt',
+  dauhu_sot_ca:'tofu tomato sauce stir fry vietnamese vegetarian',
+  dauhu_sa_ot:'fried tofu lemongrass chili stir fry crispy vietnamese',
+  nam_kho_tieu:'braised mushrooms black pepper soy sauce vegetarian vietnamese',
+  rau_muong_xao_toi:'stir fried water spinach garlic wok',
+  cai_thia_xao:'stir fried bok choy pak choi garlic oyster sauce',
+  su_su_luoc:'chayote vegetable boiled vietnamese dipping sauce',
+  ca_tim_mohanh:'grilled eggplant scallion oil vietnamese peanut',
+  dau_que_xao:'stir fried green beans garlic carrot vietnamese',
+  rau_lang_luoc:'boiled sweet potato leaves tips vietnamese dipping sauce',
+  nam_xao_cai:'stir fried mushrooms bok choy greens garlic asian',
+  carot_suhao_luoc:'mixed boiled vegetables carrot broccoli dipping sauce colorful',
+  canh_chua_ca:'vietnamese sour fish soup canh chua tamarind tomato',
+  canh_rau_ngot:'clear pork soup green leaves vietnamese',
+  canh_bidao_tom:'winter melon wax gourd shrimp clear soup vietnamese',
+  canh_cai_ca:'fish mustard greens soup vietnamese clear broth ginger',
+  canh_rongbien_dauhu:'seaweed wakame tofu miso soup japanese clear broth',
+  canh_chua_chay:'vietnamese vegan sour soup tamarind tofu tomato okra',
+  canh_raucu_thapcam:'vietnamese mixed vegetable clear soup carrot potato corn mushroom',
+  canh_mongtoi_cua:'vietnamese malabar spinach crab field soup summer',
+  canh_bau_tom:'bottle gourd calabash shrimp clear soup vietnamese light',
+};
+// Gắn URL video YouTube cho từng món
+(function(){
+  const yt=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent('cách nấu '+q);
+  const YT={
+    pho_bo:'phở bò',banh_mi_opla:'bánh mì ốp la',chao_thit:'cháo thịt bằm',
+    bun_rieu:'bún riêu cua',com_tam:'cơm tấm sườn nướng',yen_mach:'yến mạch sữa trái cây',
+    xoi_dau_xanh:'xôi đậu xanh',banh_cuon:'bánh cuốn nhân thịt',sup_ga:'súp gà rau củ',
+    bun_chay:'bún xào chay',thit_kho_trung:'thịt kho hột vịt nước dừa',ca_kho_to:'cá kho tộ',
+    ga_kho_gung:'gà kho gừng',suon_xao_chuangot:'sườn xào chua ngọt',tom_rim:'tôm rim mặn ngọt',
+    trung_chien_thit:'trứng chiên thịt bằm',thit_luoc:'thịt ba chỉ luộc',ca_hap_gung:'cá hấp gừng',
+    bo_xao_hanhtay:'bò xào hành tây',ga_hap_la_chanh:'gà hấp lá chanh',
+    dauhu_sot_ca:'đậu hũ sốt cà chua',dauhu_sa_ot:'đậu hũ chiên sả ớt',nam_kho_tieu:'nấm kho tiêu chay',
+    rau_muong_xao_toi:'rau muống xào tỏi',cai_thia_xao:'cải thìa xào dầu hào',
+    su_su_luoc:'su su luộc chấm',ca_tim_mohanh:'cà tím nướng mỡ hành',dau_que_xao:'đậu que xào tỏi',
+    rau_lang_luoc:'rau lang luộc',nam_xao_cai:'nấm xào cải ngọt',carot_suhao_luoc:'cà rốt su hào luộc',
+    canh_chua_ca:'canh chua cá',canh_rau_ngot:'canh rau ngót thịt bằm',canh_bidao_tom:'canh bí đao tôm',
+    canh_cai_ca:'canh cải nấu cá',canh_rongbien_dauhu:'canh rong biển đậu hũ',
+    canh_chua_chay:'canh chua chay',canh_raucu_thapcam:'canh rau củ thập cẩm',
+    canh_mongtoi_cua:'canh mồng tơi nấu cua',canh_bau_tom:'canh bầu tôm',
+  };
+  DISHES.forEach(d=>{ d.yt=yt(YT[d.id]||d.t); });
+})();
+
 /* ===================== STORAGE ===================== */
 const Store={
   get(k){try{const v=localStorage.getItem(k);return v==null?null:JSON.parse(v);}catch(e){return null;}},
@@ -715,6 +786,7 @@ function dishHTML(id){
       <div class="note-tip">${icon('bulb',15,2,false)} <span>${d.dd}</span></div>
       ${missing.length?`<div class="note-buy">${icon('basket',15,2)} <span>Cần mua thêm: ${missing.join(', ')}</span></div>`:''}
       ${macroBar(id)}
+      ${d.yt?`<a href="${d.yt}" target="_blank" rel="noopener" class="video-btn" onclick="event.stopPropagation()"><span class="play-ic">${icon('play',12,2,true)}</span>Xem video hướng dẫn cách nấu</a>`:''}
     </div></div>
     <div class="expand-hint" onclick="toggleDish('${id}')">Xem công thức ${icon('chevronDown',15,2.2)}</div>
   </div>`;
@@ -786,7 +858,7 @@ async function loadDishImage(id){
   if(imgCache[id]&&imgCache[id].url){applyCover(el,imgCache[id]);return;}
   el.classList.add('loading');
   try{
-    const q=encodeURIComponent(byId(id).t);  // tìm ảnh theo tên món tiếng Việt
+    const q=encodeURIComponent(IMG_Q[id]||byId(id).t);
     // Use server-side Netlify proxy (PEXELS_API_KEY env var)
     let r=await fetch(`/.netlify/functions/pexels?query=${q}`);
     // Fallback: direct API with user-supplied key (Settings screen)
@@ -915,7 +987,7 @@ function formatVND(n){return (n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 /* ===================== INIT ===================== */
-const IMG_CACHE_VER='vi-v1';
+const IMG_CACHE_VER='en-v2';
 (async function(){
   document.getElementById('welcome-foot').textContent='Thông tin được lưu trên thiết bị của bạn cho những lần sau.';
   // Flush old image cache if keywords changed
