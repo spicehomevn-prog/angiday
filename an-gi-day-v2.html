@@ -190,6 +190,18 @@
   .day-actions{display:flex; gap:10px; margin-top:20px}
   .day-actions .btn{flex:1}
 
+  /* Macro bar */
+  .macro-row{display:flex; background:var(--paper-2); border:1px solid var(--line); border-radius:var(--r-sm); padding:8px 10px 5px; margin:10px 0 4px}
+  .macro-item{flex:1; text-align:center}
+  .macro-top{display:flex; align-items:center; justify-content:center; gap:4px}
+  .macro-val{font-weight:700; color:var(--ink); font-size:13px}
+  .macro-unit{font-size:10px; color:var(--ink-soft); margin-top:2px}
+  .macro-note{text-align:center; font-size:9.5px; color:var(--ink-soft); opacity:.6; margin-top:4px}
+
+  /* Search screen */
+  .search-empty{text-align:center; color:var(--ink-soft); padding:34px 16px}
+  .search-empty-ic{width:64px; height:64px; border-radius:20px; margin:0 auto 14px; background:var(--yellow-soft); color:var(--yellow-ink); display:grid; place-items:center}
+
   /* Favorites */
   .fav-item{display:flex; align-items:center; gap:12px; background:var(--surface-sunken); border:1px solid var(--line); border-radius:var(--r-md); padding:10px; margin-bottom:10px}
   .fav-thumb{width:52px; height:52px; border-radius:13px; flex:none; background:repeating-linear-gradient(135deg,#efe9df 0 8px,#e9e2d6 8px 9px); background-size:cover; background-position:center}
@@ -317,6 +329,19 @@
     </div>
   </section>
 
+  <!-- SEARCH -->
+  <section id="screen-search" class="hidden">
+    <div class="greet"><div>
+      <div class="eyebrow">Tìm kiếm</div>
+      <h2>Tìm món</h2>
+      <div class="sub">Nhập nguyên liệu, mình gợi ý món phù hợp</div>
+    </div></div>
+    <div class="card" style="padding:14px">
+      <input class="input" id="search-input" placeholder="VD: thịt bò, cá, trứng, đậu hũ..." oninput="onSearchInput(this)" />
+    </div>
+    <div id="search-results" style="margin-top:14px"></div>
+  </section>
+
   <p class="footer" id="welcome-foot"></p>
 </div>
 
@@ -324,6 +349,7 @@
 <nav class="tabbar hidden" id="tabbar">
   <button class="tab" data-tab="home" onclick="goTab('home')"><span class="ti" id="ti-home"></span>Hôm nay</button>
   <button class="tab" data-tab="favorites" onclick="goTab('favorites')"><span class="ti" id="ti-fav"></span>Đã lưu</button>
+  <button class="tab" data-tab="search" onclick="goTab('search')"><span class="ti" id="ti-search"></span>Tìm món</button>
   <button class="tab" data-tab="settings" onclick="goTab('settings')"><span class="ti" id="ti-set"></span>Cài đặt</button>
 </nav>
 
@@ -362,6 +388,9 @@ const ICONS={
   wallet:`<rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.3" fill="currentColor" stroke="none"/>`,
   salad:`<path d="M7.5 19.5h9"/><path d="M4 11.5h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M12 11.5c-1-3 .5-5.5 3-6.5"/><path d="M12 11.5c.5-2.5 2.8-4 5.5-3.7"/><path d="M12 11.5C10.5 9 8 8.3 5.5 9.4"/>`,
   play:`<path d="M7 4.5v15l12-7.5z"/>`,
+  egg:`<path d="M12 3c3.3 0 6 4.6 6 9a6 6 0 0 1-12 0c0-4.4 2.7-9 6-9Z"/>`,
+  bread:`<path d="M6 9.6a6 4.6 0 0 1 12 0 1.6 1.6 0 0 1-1 3v4.4A1.5 1.5 0 0 1 15.5 18.5h-7A1.5 1.5 0 0 1 7 17v-4.4a1.6 1.6 0 0 1-1-3Z"/>`,
+  droplet:`<path d="M12 3.2c2.8 3.4 6 6.3 6 10A6 6 0 0 1 6 13.2c0-3.7 3.2-6.6 6-10Z"/>`,
 };
 function icon(name,size=20,sw=2,filled=false){
   const inner=ICONS[name]||'';
@@ -374,11 +403,51 @@ function icon(name,size=20,sw=2,filled=false){
 (function(){
   document.getElementById('ti-home').innerHTML=icon('home',22,2);
   document.getElementById('ti-fav').innerHTML=icon('heart',22,2);
+  document.getElementById('ti-search').innerHTML=icon('basket',22,2);
   document.getElementById('ti-set').innerHTML=icon('settings',22,2);
   document.getElementById('dice').innerHTML=icon('dice',44,1.8);
   document.getElementById('roll-btn').innerHTML=icon('dice',19,1.9)+' Lắc thực đơn';
   document.getElementById('start-btn').innerHTML='Bắt đầu nào '+icon('arrowRight',18,2.2);
 })();
+
+/* ===================== MACRO DATA ===================== */
+const AGD_MACROS={
+  pho_bo:{kcal:450,p:28,c:55,f:12},banh_mi_opla:{kcal:380,p:15,c:42,f:16},
+  chao_thit:{kcal:280,p:18,c:35,f:7},bun_rieu:{kcal:420,p:22,c:55,f:10},
+  com_tam:{kcal:620,p:32,c:72,f:22},yen_mach:{kcal:320,p:12,c:48,f:7},
+  xoi_dau_xanh:{kcal:380,p:10,c:72,f:4},banh_cuon:{kcal:340,p:18,c:42,f:10},
+  sup_ga:{kcal:220,p:22,c:18,f:6},bun_chay:{kcal:310,p:12,c:48,f:7},
+  thit_kho_trung:{kcal:520,p:35,c:12,f:38},ca_kho_to:{kcal:280,p:32,c:8,f:14},
+  ga_kho_gung:{kcal:320,p:34,c:10,f:16},suon_xao_chuangot:{kcal:420,p:28,c:22,f:26},
+  tom_rim:{kcal:180,p:28,c:8,f:4},trung_chien_thit:{kcal:280,p:20,c:2,f:20},
+  thit_luoc:{kcal:380,p:24,c:0,f:30},ca_hap_gung:{kcal:200,p:30,c:4,f:7},
+  bo_xao_hanhtay:{kcal:310,p:28,c:10,f:18},ga_hap_la_chanh:{kcal:250,p:32,c:2,f:12},
+  dauhu_sot_ca:{kcal:200,p:14,c:12,f:10},dauhu_sa_ot:{kcal:240,p:12,c:8,f:16},
+  nam_kho_tieu:{kcal:120,p:8,c:10,f:4},
+  rau_muong_xao_toi:{kcal:80,p:3,c:8,f:4},cai_thia_xao:{kcal:90,p:4,c:8,f:5},
+  su_su_luoc:{kcal:60,p:2,c:12,f:1},ca_tim_mohanh:{kcal:110,p:3,c:12,f:6},
+  dau_que_xao:{kcal:90,p:3,c:10,f:4},rau_lang_luoc:{kcal:70,p:3,c:10,f:1},
+  nam_xao_cai:{kcal:80,p:4,c:8,f:3},carot_suhao_luoc:{kcal:70,p:3,c:12,f:1},
+  canh_chua_ca:{kcal:180,p:22,c:12,f:5},canh_rau_ngot:{kcal:140,p:14,c:6,f:6},
+  canh_bidao_tom:{kcal:110,p:12,c:8,f:3},canh_cai_ca:{kcal:150,p:18,c:6,f:5},
+  canh_rongbien_dauhu:{kcal:100,p:8,c:6,f:4},canh_chua_chay:{kcal:120,p:7,c:14,f:4},
+  canh_raucu_thapcam:{kcal:90,p:3,c:18,f:1},canh_mongtoi_cua:{kcal:130,p:14,c:8,f:4},
+  canh_bau_tom:{kcal:100,p:12,c:8,f:2}
+};
+function macroBar(id){
+  const m=AGD_MACROS[id]; if(!m)return'';
+  const items=[
+    {ic:'flame',val:m.kcal,unit:'kcal',color:'var(--coral)'},
+    {ic:'egg',val:m.p,unit:'g đạm',color:'var(--yellow-deep)'},
+    {ic:'bread',val:m.c,unit:'g tinh bột',color:'var(--green)'},
+    {ic:'droplet',val:m.f,unit:'g béo',color:'var(--ink-soft)'},
+  ];
+  return `<div class="macro-row">${items.map(x=>`<div class="macro-item">
+    <div class="macro-top" style="color:${x.color}">${icon(x.ic,14,2)}<span class="macro-val">${x.val}</span></div>
+    <div class="macro-unit">${x.unit}</div>
+  </div>`).join('')}</div>
+  <div class="macro-note">* Số liệu chỉ mang tính tham khảo (mỗi khẩu phần)</div>`;
+}
 
 /* ===================== GIA VỊ ===================== */
 const SEASONINGS=[
@@ -455,10 +524,10 @@ const CUISINES=[{k:'viet',n:'Món Việt',ic:'soup'},{k:'a',n:'Món Á (Hàn/Nh�
 const DIETS=[{k:'none',n:'Không có yêu cầu gì'},{k:'ankieng',n:'Ăn kiêng / giảm cân'},{k:'itgv',n:'Ít gia vị'},{k:'chay',n:'Ăn chay'},{k:'canxi',n:'Bổ sung canxi (người lớn tuổi)'},{k:'tduong',n:'Thực dưỡng'}];
 
 /* ===================== NAV ===================== */
-const screens=['welcome','onboarding','home','favorites','settings'];
+const screens=['welcome','onboarding','home','favorites','search','settings'];
 function show(name){
   screens.forEach(s=>document.getElementById('screen-'+s).classList.toggle('hidden',s!==name));
-  const showTabs=['home','favorites','settings'].includes(name);
+  const showTabs=['home','favorites','search','settings'].includes(name);
   document.getElementById('tabbar').classList.toggle('hidden',!showTabs);
   document.getElementById('welcome-foot').classList.toggle('hidden',name!=='welcome');
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
@@ -467,6 +536,7 @@ function show(name){
 function goTab(name){
   if(name==='home') showHome();
   else if(name==='favorites') showFavorites();
+  else if(name==='search'){ show('search'); const si=document.getElementById('search-input');if(si)si.value=''; renderSearchResults(''); }
   else { renderSettings(); show('settings'); }
 }
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window.__tt);window.__tt=setTimeout(()=>t.classList.remove('show'),1900);}
@@ -480,7 +550,9 @@ function editProfile(){
   draft=JSON.parse(JSON.stringify(profile));
   draft.nguoi=parseInt(draft.nguoi)||4;
   draft.ngansach=parseInt(draft.ngansach)||200000;
-  if(!draft.diet||!draft.diet.length) draft.diet=['none'];
+  if(!Array.isArray(draft.amthuc)||!draft.amthuc.length) draft.amthuc=['viet'];
+  if(!Array.isArray(draft.giavi)) draft.giavi=['nuoc_mam','muoi','tieu','duong','toi','hanh','dau_an','hat_nem'];
+  if(!Array.isArray(draft.diet)||!draft.diet.length) draft.diet=['none'];
   onbStep=0; show('onboarding'); renderStep();
 }
 const STEPS=['ten','nguoi','ngansach','amthuc','giavi','diet'];
@@ -643,6 +715,7 @@ function dishHTML(id){
       <ol>${d.cn.map(x=>`<li>${x}</li>`).join('')}</ol>
       <div class="note-tip">${icon('bulb',15,2,false)} <span>${d.dd}</span></div>
       ${missing.length?`<div class="note-buy">${icon('basket',15,2)} <span>Cần mua thêm: ${missing.join(', ')}</span></div>`:''}
+      ${macroBar(id)}
     </div></div>
     <div class="expand-hint" onclick="toggleDish('${id}')">Xem công thức ${icon('chevronDown',15,2.2)}</div>
   </div>`;
@@ -800,6 +873,39 @@ async function saveKey(){
   toast(v?'Đã bật ảnh thật':'Đã tắt ảnh thật');
 }
 async function clearImages(){imgCache={};Store.set(K_IMG,{});toast('Đã xoá ảnh đã lưu, sẽ tải lại');}
+
+/* ===================== TÌM MÓN ===================== */
+function searchByIngredient(q){
+  if(!q.trim())return[];
+  const lq=q.trim().toLowerCase();
+  const pref=profile?.amthuc||[];
+  return DISHES
+    .filter(d=>d.nl.some(i=>i.toLowerCase().includes(lq))||d.t.toLowerCase().includes(lq))
+    .sort((a,b)=>(pref.includes(b.am)?1:0)-(pref.includes(a.am)?1:0));
+}
+function onSearchInput(el){renderSearchResults(el.value);}
+function renderSearchResults(q){
+  const area=document.getElementById('search-results'); if(!area)return;
+  if(!q.trim()){
+    area.innerHTML=`<div class="card search-empty">
+      <div class="search-empty-ic">${icon('basket',30,1.9)}</div>
+      <p style="margin:0;line-height:1.6">Nhập nguyên liệu chính muốn dùng,<br>mình sẽ gợi ý món phù hợp nhé!</p>
+    </div>`;return;
+  }
+  const results=searchByIngredient(q);
+  if(!results.length){
+    area.innerHTML=`<div class="card search-empty">
+      <div class="search-empty-ic">${icon('basket',30,1.9)}</div>
+      <p style="margin:0;line-height:1.6">Chưa có món nào dùng nguyên liệu này<br>trong kho của mình.</p>
+      <a href="https://www.google.com/search?q=công+thức+nấu+${encodeURIComponent(q.trim())}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 18px;background:var(--yellow);color:var(--ink);border-radius:var(--r-pill);font-weight:700;font-size:14px;text-decoration:none">${icon('bulb',15,2)} Tìm trên Google</a>
+    </div>`;return;
+  }
+  const openState={};
+  area.innerHTML=`<div class="eyebrow" style="margin-bottom:10px">Tìm thấy ${results.length} món có "${q.trim()}"</div>`
+    +results.map(d=>dishHTML(d.id)).join('');
+  // load images for search results
+  results.forEach((d,i)=>setTimeout(()=>loadDishImage(d.id),i*120));
+}
 
 /* ===================== TIỆN ÍCH ===================== */
 function byId(id){return DISHES.find(d=>d.id===id);}
