@@ -6,204 +6,233 @@
 <title>Ăn Gì Đây? — Gợi ý thực đơn cho cả nhà</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FBF3E8; --paper2:#F4E7D6;
+    --paper:#FBFAF7; --paper-2:#F2EEE6;
     --card:#FFFFFF;
-    --red:#E0533B; --red-deep:#C23E29; --red-soft:#FBE0D6;
-    --green:#3F9A5B; --green-soft:#E4F1E5;
-    --gold:#EFA53C; --gold-soft:#FBEBCF;
-    --plum:#A8537E; --plum-soft:#F6E2EC;
-    --ink:#3B2A20; --ink-soft:#9A8270; --line:#EDE0CF;
-    --shadow:0 14px 34px rgba(120,75,40,.14);
-    --shadow-sm:0 5px 16px rgba(120,75,40,.10);
-    --r:26px; --r-md:18px; --r-sm:13px;
-    --display:"Baloo 2", system-ui, sans-serif;
-    --body:"Be Vietnam Pro", system-ui, sans-serif;
+    --yellow:#FFC400; --yellow-deep:#E5A600; --yellow-soft:#FFF1C2; --yellow-ink:#7A5800;
+    --ink:#1B1714; --ink-2:#3D362F; --ink-soft:#8C857B; --line:#ECE7DD;
+    --green:#4FA570; --green-soft:#E3F1E6; --green-ink:#2E6B47;
+    --coral:#F2603C; --coral-soft:#FCE3DB; --coral-ink:#B23D1E;
+    --surface-sunken:#FBF8F1;
+    --shadow:0 14px 32px -16px rgba(26,20,12,.24);
+    --shadow-sm:0 8px 20px -12px rgba(26,20,12,.18);
+    --shadow-card:0 10px 26px -16px rgba(20,16,10,.30);
+    --shadow-dark:0 12px 28px -12px rgba(20,16,10,.40);
+    --btn-shadow:0 6px 16px -8px rgba(229,166,0,.55);
+    --btn-shadow-hover:0 9px 20px -8px rgba(229,166,0,.72);
+    --btn-shadow-active:0 3px 9px -6px rgba(229,166,0,.55);
+    --r:24px; --r-md:18px; --r-sm:14px; --r-tab:22px; --r-pill:999px;
+    --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+    --font-body:"Be Vietnam Pro",system-ui,sans-serif;
+    --tracking-display:-0.5px;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --dur-fast:0.12s; --dur-base:0.25s; --dur-expand:0.35s;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    font-family:var(--body); color:var(--ink); line-height:1.5;
-    background:
-      radial-gradient(120% 80% at 50% -10%, #FFF6EC 0%, transparent 55%),
-      linear-gradient(180deg,var(--paper),var(--paper2));
+    font-family:var(--font-body); color:var(--ink); line-height:1.5;
+    background:radial-gradient(130% 90% at 50% -20%,#FFFDF6 0%,transparent 55%) var(--paper);
     background-attachment:fixed; min-height:100dvh; -webkit-font-smoothing:antialiased;
   }
   .app{max-width:560px; margin:0 auto; padding:14px 16px 110px; min-height:100dvh}
-  h1,h2,h3,h4,.disp{font-family:var(--display); letter-spacing:.2px; margin:0}
-  button{font-family:var(--body); cursor:pointer; border:none; background:none; color:inherit}
-  a{color:var(--red-deep)}
-  :focus-visible{outline:3px solid var(--plum); outline-offset:2px; border-radius:6px}
+  h1,h2,h3,h4{font-family:var(--font-display); letter-spacing:var(--tracking-display); margin:0}
+  button{font-family:var(--font-body); cursor:pointer; border:none; background:none; color:inherit}
+  a{color:var(--coral-ink)}
+  :focus-visible{outline:3px solid var(--coral); outline-offset:2px; border-radius:6px}
   .hidden{display:none !important}
 
   /* Topbar */
   .topbar{display:flex; align-items:center; justify-content:center; gap:9px; padding:8px 0 16px}
-  .topbar .logo{font-size:26px; filter:drop-shadow(0 4px 5px rgba(0,0,0,.10))}
-  .topbar .name{font-family:var(--display); font-weight:800; font-size:22px; color:var(--red-deep)}
-  .topbar .name b{color:var(--green)}
+  .topbar .logo{width:30px; height:30px; display:block}
+  .topbar .name{font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:var(--tracking-display); color:var(--ink); white-space:nowrap}
+  .topbar .name b{color:var(--yellow-deep)}
 
+  /* Cards */
   .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:22px}
-  .card + .card{margin-top:16px}
-  .eyebrow{font-family:var(--body); font-weight:700; font-size:11.5px; letter-spacing:1.4px; text-transform:uppercase; color:var(--red); }
+  .card+.card{margin-top:16px}
+  .card-dark{background:var(--ink); border-color:var(--ink); color:#fff}
+
+  .eyebrow{font-family:var(--font-body); font-weight:700; font-size:11.5px; letter-spacing:1.6px; text-transform:uppercase; color:var(--yellow-ink)}
 
   /* Buttons */
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:16px; border-radius:999px; padding:14px 22px; transition:transform .12s, box-shadow .12s, background .2s; white-space:nowrap}
-  .btn:active{transform:translateY(2px)}
-  .btn-primary{background:var(--red); color:#fff; box-shadow:0 7px 0 var(--red-deep)}
-  .btn-primary:hover{background:var(--red-deep); box-shadow:0 5px 0 #a3331f}
-  .btn-primary:active{box-shadow:0 3px 0 #a3331f}
-  .btn-ghost{background:var(--red-soft); color:var(--red-deep)}
-  .btn-ghost:hover{background:#f8d2c4}
-  .btn-soft{background:var(--green-soft); color:var(--green)}
-  .btn-soft:hover{background:#d4ead8}
-  .btn-line{background:#fff; border:2px solid var(--line); color:var(--ink)}
-  .btn-line:hover{border-color:var(--red)}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-body); font-weight:700; font-size:16px; border-radius:var(--r-pill); padding:14px 22px; transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease),background var(--dur-base) var(--ease),filter var(--dur-fast) var(--ease); white-space:nowrap; border:none; cursor:pointer}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--yellow); color:var(--ink); box-shadow:var(--btn-shadow)}
+  .btn-primary:hover{background:var(--yellow-deep); box-shadow:var(--btn-shadow-hover)}
+  .btn-primary:active{box-shadow:var(--btn-shadow-active)}
+  .btn-dark{background:var(--ink); color:#fff}
+  .btn-dark:hover{filter:brightness(1.35)}
+  .btn-ghost{background:var(--yellow-soft); color:var(--yellow-ink)}
+  .btn-soft{background:var(--green-soft); color:var(--green-ink)}
+  .btn-soft:hover{background:#D4EAD8}
+  .btn-line{background:var(--card); border:2px solid var(--line); color:var(--ink)}
+  .btn-line:hover{border-color:var(--ink)}
+  .btn-rounded{border-radius:var(--r-md)}
   .btn-block{display:flex; width:100%}
-  .btn-lg{font-size:18px; padding:17px 24px}
+  .btn-lg{font-size:18px; padding:17px 26px}
 
   /* Welcome */
-  .hero{text-align:center; padding:8px 22px 26px; position:relative; overflow:hidden}
-  .hero-emojis{font-size:30px; letter-spacing:6px; opacity:.9; margin-bottom:6px}
-  .hero .bowl{font-size:78px; display:inline-block; animation:bob 2.8s ease-in-out infinite; filter:drop-shadow(0 10px 12px rgba(0,0,0,.10))}
-  .hero h1{font-size:33px; margin:12px 0 8px; color:var(--red-deep); line-height:1.1}
-  .hero p{color:var(--ink-soft); font-size:15.5px; margin:0 auto 22px; max-width:330px}
-  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+  .hero-card{padding:14px; overflow:hidden}
+  .hero-photo{height:190px; border-radius:16px; background:repeating-linear-gradient(135deg,#efe9df 0 12px,#e9e2d6 12px 13px); position:relative}
+  .hero-photo::after{content:'ảnh mâm cơm nhà mình'; position:absolute; left:12px; bottom:10px; font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#9a8f7d; background:rgba(255,255,255,.72); padding:3px 8px; border-radius:6px}
+  .hero-body{padding:18px 8px 6px}
+  .hero-body h1{font-size:34px; font-weight:800; margin:8px 0 10px; line-height:1.05; color:var(--ink)}
+  .hero-body p{color:var(--ink-soft); font-size:15.5px; margin:0 0 22px; line-height:1.5}
 
   /* Onboarding */
   .progress{display:flex; gap:7px; justify-content:center; margin:2px 0 16px}
-  .progress i{width:8px; height:8px; border-radius:50%; background:var(--red-soft); transition:.25s}
-  .progress i.on{background:var(--red); width:22px; border-radius:6px}
+  .progress i{width:8px; height:8px; border-radius:50%; background:var(--yellow-soft); transition:.25s}
+  .progress i.on{background:var(--yellow); width:22px; border-radius:6px}
   .progress i.done{background:var(--green)}
-  .q-emoji{font-size:44px; text-align:center; display:block; margin-bottom:8px}
-  .q-title{font-weight:700; font-size:22px; text-align:center; margin-bottom:4px}
+  .step-icon{width:56px; height:56px; border-radius:18px; margin:0 auto 12px; background:var(--yellow-soft); color:var(--yellow-ink); display:grid; place-items:center}
+  .q-title{font-family:var(--font-display); font-weight:700; font-size:22px; letter-spacing:var(--tracking-display); text-align:center; margin-bottom:4px; color:var(--ink)}
   .q-sub{text-align:center; color:var(--ink-soft); font-size:14px; margin:0 0 20px}
-
   .chips{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
-  .chip{border:2px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:11px 16px; font-size:15px; font-weight:600; transition:.15s}
-  .chip:hover{border-color:var(--red)}
-  .chip.sel{background:var(--red); border-color:var(--red); color:#fff}
-  .chip.sel.green{background:var(--green); border-color:var(--green)}
-
+  .chip{border:2px solid var(--line); background:var(--card); color:var(--ink); border-radius:var(--r-pill); padding:11px 16px; font-size:15px; font-weight:600; font-family:var(--font-body); transition:.15s; display:inline-flex; align-items:center; gap:7px; cursor:pointer}
+  .chip:hover{border-color:var(--ink)}
+  .chip.sel{background:var(--yellow); border-color:var(--yellow); color:var(--ink)}
+  .chip.green.sel{background:var(--green); border-color:var(--green); color:#fff}
+  .chip.green:hover{border-color:var(--green)}
   .stepper{display:flex; align-items:center; justify-content:center; gap:18px; margin:8px 0 2px}
-  .stepper button{width:56px; height:56px; border-radius:50%; background:var(--red-soft); color:var(--red-deep); font-size:28px; font-weight:800; font-family:var(--display)}
-  .stepper button:hover{background:#f8d2c4}
-  .stepper .val{font-family:var(--display); font-weight:800; font-size:46px; min-width:70px; text-align:center; color:var(--red-deep)}
+  .stepper button{width:56px; height:56px; border-radius:50%; background:var(--yellow-soft); color:var(--yellow-ink); font-size:26px; font-weight:800; font-family:var(--font-display); transition:.15s; border:none; cursor:pointer; display:grid; place-items:center}
+  .stepper button:hover{background:var(--yellow-deep); color:var(--ink)}
+  .stepper .val{font-family:var(--font-display); font-weight:800; font-size:48px; min-width:70px; text-align:center; color:var(--ink); letter-spacing:var(--tracking-display)}
   .stepper-label{text-align:center; color:var(--ink-soft); margin-top:2px}
-
   .field{margin:0 auto; max-width:330px}
   .field label{display:block; font-weight:600; font-size:14px; margin-bottom:6px}
-  .input{width:100%; border:2px solid var(--line); border-radius:var(--r-sm); padding:13px 14px; font-size:16px; font-family:var(--body); background:#FFFCF7; color:var(--ink)}
-  .input:focus{outline:none; border-color:var(--red)}
+  .input{width:100%; border:2px solid var(--line); border-radius:var(--r-sm); padding:13px 14px; font-size:16px; font-family:var(--font-body); background:var(--surface-sunken); color:var(--ink); transition:.15s}
+  .input:focus{outline:none; border-color:var(--ink)}
   .budget-quick{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px}
   .nav-row{display:flex; gap:10px; margin-top:24px}
   .nav-row .btn{flex:1}
 
-  /* Header greet */
+  /* Home greet */
   .greet{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:14px}
-  .greet h2{font-size:25px; color:var(--red-deep)}
+  .greet h2{font-size:25px; font-weight:800; letter-spacing:var(--tracking-display)}
   .greet .sub{color:var(--ink-soft); font-size:13px; margin-top:3px; line-height:1.45}
 
-  /* Ask card */
-  .ask{text-align:center; background:linear-gradient(160deg,#fff, #FFF4EA); position:relative}
-  .ask .dice{font-size:42px; display:inline-block}
-  .ask .big{font-weight:800; font-size:25px; margin:6px 0 2px}
-  .ask p{color:var(--ink-soft); font-size:14px; margin:2px 0 18px}
+  /* Ask card (dark) */
+  .ask{text-align:center}
+  .ask .dice-wrap{display:inline-flex; color:var(--yellow); margin-bottom:4px}
+  .ask .big{font-family:var(--font-display); font-weight:800; font-size:26px; letter-spacing:var(--tracking-display); margin:8px 0 4px; color:#fff}
+  .ask p{color:rgba(255,255,255,.65); font-size:14px; margin:2px 0 20px}
 
-  .badge{display:inline-flex; align-items:center; gap:5px; background:var(--gold-soft); color:#946312; font-weight:600; font-size:12px; padding:5px 11px; border-radius:999px}
-  .badge.green{background:var(--green-soft); color:var(--green)}
-  .badge.plum{background:var(--plum-soft); color:var(--plum)}
-  .note-row{display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:16px}
+  /* Badges */
+  .badge{display:inline-flex; align-items:center; gap:5px; font-weight:600; font-size:12px; padding:5px 11px; border-radius:var(--r-pill)}
+  .badge-dark{background:var(--ink); color:#fff}
+  .badge-green{background:var(--green-soft); color:var(--green-ink)}
+  .badge-yellow{background:var(--yellow-soft); color:var(--yellow-ink)}
+  .badge-coral{background:var(--coral-soft); color:var(--coral-ink)}
+  .note-row{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px}
 
   /* Meal section */
   .meal{margin-top:18px}
   .meal:first-child{margin-top:4px}
-  .meal-head{display:flex; align-items:center; gap:9px; margin:0 2px 11px}
-  .meal-head .m-ic{font-size:20px}
-  .meal-head h3{font-size:17px; color:var(--red-deep)}
-  .meal-head .line{flex:1; height:2px; background:var(--line); border-radius:2px}
+  .meal-head{display:flex; align-items:center; gap:9px; margin:0 2px 11px; color:var(--ink-soft)}
+  .meal-head h3{font-size:17px; font-weight:700; color:var(--ink); letter-spacing:var(--tracking-display)}
+  .meal-head .m-line{flex:1; height:1px; background:var(--line); border-radius:2px}
 
-  /* Dish card with photo */
-  .dish{background:#fff; border:1px solid var(--line); border-radius:var(--r-md); margin-bottom:13px; overflow:hidden; box-shadow:var(--shadow-sm); transition:.15s}
-  .cover{position:relative; height:148px; display:grid; place-items:center; cursor:pointer;
-    background:linear-gradient(150deg,var(--gold-soft),var(--red-soft)); background-size:cover; background-position:center}
-  .cover .cover-emoji{font-size:58px; filter:drop-shadow(0 6px 8px rgba(0,0,0,.12)); transition:.2s}
-  .cover.has-img .cover-emoji{display:none}
-  .cover-scrim{position:absolute; inset:0; background:linear-gradient(180deg,transparent 35%,rgba(40,22,12,.62)); opacity:0; transition:.25s}
-  .cover.has-img .cover-scrim{opacity:1}
-  .cover-title{position:absolute; left:14px; right:14px; bottom:11px; font-family:var(--display); font-weight:700; font-size:18px; color:var(--ink)}
-  .cover.has-img .cover-title{color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.4)}
-  .cover.loading{animation:pulse 1.1s ease-in-out infinite}
-  @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(.94)}}
-  .cover-tags{position:absolute; top:10px; left:10px; display:flex; gap:6px}
-  .ctag{background:rgba(255,255,255,.92); color:var(--ink); font-size:11.5px; font-weight:600; padding:4px 9px; border-radius:999px; box-shadow:var(--shadow-sm)}
-  .cover-actions{position:absolute; top:10px; right:10px; display:flex; gap:7px}
-  .mini{width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:15px; background:rgba(255,255,255,.94); box-shadow:var(--shadow-sm); transition:.15s}
+  /* Dish card (split) */
+  .dish{background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); margin-bottom:13px; box-shadow:var(--shadow-card)}
+  .dish-cover{position:relative; display:flex; height:128px; border-radius:13px; overflow:hidden; cursor:pointer; margin:10px 10px 0}
+  .dish-photo{flex:1.3; background:repeating-linear-gradient(135deg,#efe9df 0 12px,#e9e2d6 12px 13px); position:relative; background-size:cover; background-position:center}
+  .dish-photo.has-img .photo-lbl{display:none}
+  .photo-lbl{position:absolute; left:10px; bottom:8px; font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#9a8f7d; background:rgba(255,255,255,.7); padding:2px 7px; border-radius:5px}
+  .credit{position:absolute; right:8px; bottom:7px; font-size:9.5px; color:rgba(255,255,255,.85); display:none; text-shadow:0 1px 3px rgba(0,0,0,.5)}
+  .dish-photo.has-img .credit{display:block}
+  .dish-panel{flex:.82; position:relative; display:flex; align-items:flex-start; justify-content:flex-end; padding:10px}
+  .dish-tag{display:inline-flex; align-items:center; gap:4px; background:rgba(255,255,255,.92); color:var(--ink); font-size:11px; font-weight:700; padding:4px 9px; border-radius:var(--r-pill); box-shadow:var(--shadow-sm)}
+  .dish-cat{position:absolute; right:10px; bottom:10px; font-size:11px; font-weight:700; padding:4px 10px; border-radius:var(--r-pill); background:rgba(255,255,255,.85)}
+  .dish-actions{position:absolute; top:9px; left:9px; display:flex; gap:7px}
+  .mini{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:none; cursor:pointer; background:rgba(255,255,255,.95); box-shadow:var(--shadow-sm); transition:transform var(--dur-fast) var(--ease); color:var(--ink)}
   .mini:hover{transform:scale(1.08)}
-  .mini.heart.on{background:var(--red); color:#fff}
-  .credit{position:absolute; right:10px; bottom:8px; font-size:9.5px; color:rgba(255,255,255,.85); display:none; text-shadow:0 1px 3px rgba(0,0,0,.5)}
-  .cover.has-img .cover-title{bottom:20px}
-
-  .dish-body{max-height:0; overflow:hidden; transition:max-height .35s ease}
-  .dish.open .dish-body{max-height:1200px}
-  .recipe{padding:4px 16px 16px}
-  .recipe h4{font-size:14px; margin:14px 0 6px; color:var(--green); display:flex; align-items:center; gap:6px}
+  .mini-coral{background:var(--coral); color:#fff}
+  .dish-info{padding:12px 14px 4px}
+  .dish-name{font-family:var(--font-display); font-weight:700; font-size:20px; letter-spacing:var(--tracking-display); line-height:1.1; color:var(--ink)}
+  .dish-pills{display:flex; gap:7px; flex-wrap:wrap; padding:10px 0 4px}
+  .pill{display:inline-flex; align-items:center; gap:5px; font-size:13px; font-weight:600; padding:6px 11px; border-radius:var(--r-pill); font-family:var(--font-body)}
+  .pill-dark{background:var(--ink); color:#fff}
+  .pill-paper{background:var(--paper-2); color:var(--ink)}
+  .pill-green{background:var(--green-soft); color:var(--green-ink)}
+  .dish-body{max-height:0; overflow:hidden; transition:max-height var(--dur-expand) var(--ease)}
+  .dish.open .dish-body{max-height:1400px}
+  .recipe{padding:4px 14px 14px}
+  .recipe-h{font-size:14px; margin:14px 0 6px; color:var(--ink); display:flex; align-items:center; gap:6px; font-family:var(--font-body); font-weight:700}
+  .recipe-sub{color:var(--ink-soft); font-weight:500}
   .recipe ul,.recipe ol{margin:0; padding-left:20px}
   .recipe li{font-size:14px; line-height:1.55; margin-bottom:3px}
-  .dd-note{background:var(--green-soft); border-radius:12px; padding:9px 12px; font-size:13px; color:#2c6b41; margin-top:13px}
-  .buy-note{background:var(--gold-soft); border-radius:12px; padding:9px 12px; font-size:13px; color:#8a5e0e; margin-top:8px}
-  .expand-hint{text-align:center; font-size:12px; color:var(--ink-soft); padding:9px; cursor:pointer; border-top:1px dashed var(--line)}
+  .note-tip{background:var(--green-soft); color:var(--green-ink); border-radius:12px; padding:9px 12px; font-size:13px; margin-top:13px; display:flex; align-items:flex-start; gap:7px}
+  .note-buy{background:var(--yellow-soft); color:var(--yellow-ink); border-radius:12px; padding:9px 12px; font-size:13px; margin-top:8px; display:flex; align-items:flex-start; gap:7px}
+  .expand-hint{text-align:center; font-size:13px; font-weight:600; color:var(--ink-soft); padding:10px; cursor:pointer; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:5px}
   .dish.open .expand-hint{display:none}
-
   .day-actions{display:flex; gap:10px; margin-top:20px}
   .day-actions .btn{flex:1}
 
-  /* Favorites / settings */
-  .fav-item{display:flex; align-items:center; justify-content:space-between; gap:10px; background:#FFFCF7; border:1px solid var(--line); border-radius:var(--r-md); padding:13px 14px; margin-bottom:10px}
-  .fav-item .ft{font-family:var(--display); font-weight:700; font-size:15px}
-  .fav-item .fmeta{font-size:12.5px; color:var(--ink-soft); margin-top:2px}
-  .empty{text-align:center; color:var(--ink-soft); padding:34px 12px}
-  .empty .em{font-size:50px}
+  /* Favorites */
+  .fav-item{display:flex; align-items:center; gap:12px; background:var(--surface-sunken); border:1px solid var(--line); border-radius:var(--r-md); padding:10px; margin-bottom:10px}
+  .fav-thumb{width:52px; height:52px; border-radius:13px; flex:none; background:repeating-linear-gradient(135deg,#efe9df 0 8px,#e9e2d6 8px 9px); background-size:cover; background-position:center}
+  .fav-day-ic{width:52px; height:52px; border-radius:13px; flex:none; background:var(--yellow-soft); color:var(--yellow-ink); display:grid; place-items:center}
+  .fav-info{flex:1; min-width:0}
+  .fav-name{font-family:var(--font-display); font-weight:700; font-size:16px; letter-spacing:var(--tracking-display); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .fav-meta{font-size:12.5px; color:var(--ink-soft); margin-top:2px}
+  .empty-state{text-align:center; color:var(--ink-soft); padding:40px 16px}
+  .empty-ic{width:64px; height:64px; border-radius:20px; margin:0 auto 14px; background:var(--yellow-soft); color:var(--yellow-ink); display:grid; place-items:center}
+
+  /* Settings */
   .set-block{margin-bottom:8px}
-  .set-block h4{font-size:16px; margin-bottom:4px}
+  .set-block h4{font-size:16px; font-weight:700; margin-bottom:4px; color:var(--ink)}
   .set-block p{font-size:13px; color:var(--ink-soft); margin:0 0 10px}
-  .status-pill{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; padding:5px 12px; border-radius:999px; margin-bottom:12px}
-  .status-pill.on{background:var(--green-soft); color:var(--green)}
-  .status-pill.off{background:var(--line); color:var(--ink-soft)}
+  .status-pill{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; padding:5px 12px; border-radius:var(--r-pill); margin-bottom:12px}
+  .status-pill.on{background:var(--green-soft); color:var(--green-ink)}
+  .status-pill.off{background:var(--paper-2); color:var(--ink-soft)}
   hr.sep{border:none; border-top:1px solid var(--line); margin:20px 0}
 
-  /* Bottom nav */
+  /* Tab bar */
   .tabbar{position:fixed; left:50%; transform:translateX(-50%); bottom:14px; width:calc(100% - 32px); max-width:528px;
-    background:rgba(255,255,255,.86); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-    border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); display:flex; padding:7px; gap:4px; z-index:40}
-  .tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; padding:8px 4px; border-radius:16px; font-size:11px; font-weight:600; color:var(--ink-soft); transition:.15s}
-  .tab .ti{font-size:21px}
-  .tab.active{background:var(--red-soft); color:var(--red-deep)}
-  .tab:hover{background:var(--paper2)}
+    background:var(--ink); border:1px solid var(--ink); border-radius:var(--r-tab); box-shadow:var(--shadow-dark); display:flex; padding:8px; gap:4px; z-index:40}
+  .tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 4px; border-radius:14px; font-size:11.5px; font-weight:600; font-family:var(--font-body); color:#9a948c; transition:color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease); background:transparent; border:none; cursor:pointer}
+  .tab .ti{display:grid; place-items:center; height:22px}
+  .tab.active{color:var(--yellow)}
+  .tab:hover{background:rgba(255,255,255,.08)}
 
-  .toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:12px 20px; border-radius:999px; font-size:14px; font-weight:600; opacity:0; transition:.25s; box-shadow:var(--shadow); z-index:60}
+  .toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:12px 20px; border-radius:var(--r-pill); font-size:14px; font-weight:600; opacity:0; transition:.25s; box-shadow:var(--shadow); z-index:60}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
-  .pop{animation:pop .35s ease}
-  @keyframes pop{0%{transform:scale(.97); opacity:.5}100%{transform:scale(1); opacity:1}}
-  .shake{animation:shake .5s ease}
-  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px) rotate(-2deg)}40%{transform:translateX(7px) rotate(2deg)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
   .footer{text-align:center; color:var(--ink-soft); font-size:11.5px; margin-top:20px; line-height:1.6}
-  @media (prefers-reduced-motion: reduce){*{animation:none !important; transition:none !important}}
+  .pop{animation:agd-pop .35s var(--ease)}
+  .shake{animation:agd-shake .5s var(--ease)}
+  .loading{animation:agd-pulse 1.1s ease-in-out infinite}
+  @keyframes agd-pop{0%{transform:scale(.97);opacity:.5}100%{transform:scale(1);opacity:1}}
+  @keyframes agd-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px) rotate(-2deg)}40%{transform:translateX(7px) rotate(2deg)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+  @keyframes agd-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(.94)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="topbar"><span class="logo">🍲</span><span class="name">Ăn Gì <b>Đây?</b></span></div>
+  <div class="topbar">
+    <svg class="logo" viewBox="0 0 64 64" fill="none" role="img" aria-label="Ăn Gì Đây">
+      <path d="M28 13 q-3 3 0 6 M36 13 q-3 3 0 6" stroke="#4FA570" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M18 30 L46 24" stroke="#FFC400" stroke-width="4.6" stroke-linecap="round"/>
+      <circle cx="48.5" cy="22.5" r="2.6" fill="#F2603C"/>
+      <path d="M16 33 h32 v6 a6 6 0 0 1 -6 6 h-20 a6 6 0 0 1 -6 -6 Z" fill="#1B1714"/>
+      <path d="M13 33 h6 M45 33 h6" stroke="#1B1714" stroke-width="4.4" stroke-linecap="round"/>
+    </svg>
+    <span class="name">Ăn Gì <b>Đây?</b></span>
+  </div>
 
   <!-- WELCOME -->
   <section id="screen-welcome" class="hidden">
-    <div class="card hero">
-      <div class="hero-emojis">🥬 🍚 🐟 🍅 🍗</div>
-      <span class="bowl">🥢</span>
-      <h1>Hôm nay nhà mình<br>ăn gì đây?</h1>
-      <p>Để mình lo chuyện nghĩ món. Cho mình biết vài điều về gia đình, rồi mỗi ngày chỉ cần một cú chạm là có thực đơn cân bằng kèm công thức.</p>
-      <button class="btn btn-primary btn-lg btn-block" onclick="startOnboarding()">Bắt đầu nào 🌷</button>
+    <div class="card hero-card">
+      <div class="hero-photo"></div>
+      <div class="hero-body">
+        <div class="eyebrow">Ăn Gì Đây?</div>
+        <h1>Hôm nay nhà mình<br>ăn gì đây?</h1>
+        <p>Để mình lo chuyện nghĩ món. Cho mình biết vài điều về gia đình, rồi mỗi ngày chỉ cần một cú chạm là có thực đơn cân bằng kèm công thức.</p>
+        <button class="btn btn-primary btn-lg btn-block" id="start-btn" onclick="startOnboarding()">Bắt đầu nào</button>
+      </div>
     </div>
   </section>
 
@@ -218,32 +247,36 @@
     <div class="greet">
       <div>
         <div class="eyebrow" id="today-label"></div>
-        <h2 id="greet-name">Chào nhà mình! 👋</h2>
+        <h2 id="greet-name">Chào nhà mình!</h2>
         <div class="sub" id="greet-sub"></div>
       </div>
     </div>
-    <div class="card ask" id="ask-card">
-      <span class="dice" id="dice">🎲</span>
+    <div class="card card-dark ask" id="ask-card">
+      <div class="dice-wrap" id="dice"></div>
       <div class="big">Bữa nay ăn gì ta?</div>
-      <p>Bấm để lắc ra thực đơn vừa ý cho cả nhà</p>
-      <button class="btn btn-primary btn-lg btn-block" id="roll-btn" onclick="rollMenu()">Lắc thực đơn 🎲</button>
+      <p>Bấm để lắc ra thực đơn cân bằng cho cả nhà</p>
+      <button class="btn btn-primary btn-lg btn-block" id="roll-btn" onclick="rollMenu()"></button>
     </div>
     <div id="menu-area"></div>
   </section>
 
   <!-- FAVORITES -->
   <section id="screen-favorites" class="hidden">
-    <div class="greet"><div><div class="eyebrow">Bộ sưu tập</div><h2>Đã lưu ❤️</h2><div class="sub">Những món &amp; thực đơn cả nhà thích</div></div></div>
+    <div class="greet"><div>
+      <div class="eyebrow">Bộ sưu tập</div>
+      <h2>Đã lưu</h2>
+      <div class="sub">Những món &amp; thực đơn cả nhà thích</div>
+    </div></div>
     <div id="fav-list"></div>
   </section>
 
   <!-- SETTINGS -->
   <section id="screen-settings" class="hidden">
-    <div class="greet"><div><div class="eyebrow">Tùy chỉnh</div><h2>Cài đặt ⚙️</h2></div></div>
+    <div class="greet"><div><div class="eyebrow">Tùy chỉnh</div><h2>Cài đặt</h2></div></div>
     <div class="card">
       <div class="set-block">
-        <h4>🖼️ Ảnh món ăn thật</h4>
-        <div class="status-pill off" id="img-status">Đang dùng icon</div>
+        <h4>Ảnh món ăn thật</h4>
+        <div class="status-pill off" id="img-status">Đang dùng ảnh placeholder</div>
         <p>Dán API key Pexels (miễn phí) để app hiển thị ảnh thật cho từng món. Key được lưu trên thiết bị của bạn, không nằm trong file chia sẻ.</p>
         <div class="field" style="max-width:none">
           <input class="input" id="in-key" placeholder="Dán Pexels API key vào đây" />
@@ -256,12 +289,12 @@
       </div>
       <hr class="sep" />
       <div class="set-block">
-        <h4>👨‍👩‍👧 Thông tin gia đình</h4>
+        <h4>Thông tin gia đình</h4>
         <p id="set-profile-sum"></p>
         <button class="btn btn-ghost btn-block" onclick="editProfile()">Chỉnh sửa thông tin</button>
       </div>
       <hr class="sep" />
-      <div class="footer" style="margin-top:0">Ảnh cung cấp bởi <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>.<br>Ăn Gì Đây? — người bạn nhỏ trong căn bếp 🧡</div>
+      <div class="footer" style="margin-top:0">Ảnh cung cấp bởi <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>.<br>Ăn Gì Đây? — người bạn nhỏ trong căn bếp</div>
     </div>
   </section>
 
@@ -270,14 +303,64 @@
 
 <!-- Bottom nav -->
 <nav class="tabbar hidden" id="tabbar">
-  <button class="tab" data-tab="home" onclick="goTab('home')"><span class="ti">🏠</span>Hôm nay</button>
-  <button class="tab" data-tab="favorites" onclick="goTab('favorites')"><span class="ti">❤️</span>Đã lưu</button>
-  <button class="tab" data-tab="settings" onclick="goTab('settings')"><span class="ti">⚙️</span>Cài đặt</button>
+  <button class="tab" data-tab="home" onclick="goTab('home')"><span class="ti" id="ti-home"></span>Hôm nay</button>
+  <button class="tab" data-tab="favorites" onclick="goTab('favorites')"><span class="ti" id="ti-fav"></span>Đã lưu</button>
+  <button class="tab" data-tab="settings" onclick="goTab('settings')"><span class="ti" id="ti-set"></span>Cài đặt</button>
 </nav>
 
 <div class="toast" id="toast"></div>
 
 <script>
+/* ===================== SVG ICONS ===================== */
+const ICONS={
+  home:`<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-5h4v5"/>`,
+  heart:`<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.5 4.04 3 5.5l7 7Z"/>`,
+  settings:`<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.55 1.55M6.85 17.15 5.3 18.7M18.7 18.7l-1.55-1.55M6.85 6.85 5.3 5.3"/>`,
+  sunrise:`<path d="M12 3v3"/><path d="m6.3 7.3 1.5 1.5M16.2 8.8l1.5-1.5"/><path d="M2.5 18h2.5M19 18h2.5"/><path d="M8 18a4 4 0 0 1 8 0"/><path d="M2 22h20"/>`,
+  sun:`<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>`,
+  moon:`<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>`,
+  dice:`<rect x="3" y="3" width="18" height="18" rx="4.5"/><circle cx="8.5" cy="8.5" r="1.25" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.25" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.25" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.25" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.25" fill="currentColor" stroke="none"/>`,
+  refresh:`<path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>`,
+  trash:`<path d="M4 7h16"/><path d="M10 7V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2"/><path d="M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7"/><path d="M10 11v6M14 11v6"/>`,
+  basket:`<circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.4" fill="currentColor" stroke="none"/><path d="M2 3h2.2l2.3 12a1 1 0 0 0 1 .82h8.6a1 1 0 0 0 .98-.78L19.5 7H6"/>`,
+  chefHat:`<path d="M6 13.9A4 4 0 0 1 7.4 6 5.1 5.1 0 0 1 8.5 4.5a5 5 0 0 1 7.08 0A5.1 5.1 0 0 1 16.6 6 4 4 0 0 1 18 13.9V21H6Z"/><path d="M6 17h12"/>`,
+  leaf:`<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/>`,
+  sprout:`<path d="M7 20h10"/><path d="M12 20c0-5 0-7 0-9"/><path d="M12 11C12 8 10 6 6.5 6 6.5 9.5 8.5 11 12 11Z"/><path d="M12 11c0-2.6 1.7-4.5 5.5-4.5C17.5 9.4 15.5 11 12 11Z"/>`,
+  drumstick:`<path d="M15.45 15.4c-2.13.65-4.3.32-5.7-1.1-2.29-2.27-1.76-6.5 1.17-9.42 2.93-2.93 7.15-3.46 9.43-1.18 1.41 1.41 1.74 3.57 1.1 5.71-1.4-.51-3.26-.02-4.64 1.36-1.38 1.38-1.87 3.23-1.36 4.63z"/><path d="m11.25 15.6-2.16 2.16a2.5 2.5 0 1 1-4.56 1.73 2.49 2.49 0 0 1-1.41-4.24 2.5 2.5 0 0 1 3.14-.32l2.16-2.16"/>`,
+  soup:`<path d="M8 4c0 1-1 1.5-1 2.5S8 8 8 9M12 3c0 1-1 1.5-1 2.5S12 7 12 8M16 4c0 1-1 1.5-1 2.5S16 8 16 9"/><path d="M4 11.5h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M7.5 19.5h9"/>`,
+  clock:`<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>`,
+  dollar:`<path d="M12 4.5v15"/><path d="M15.6 7.8c-.9-.95-2.2-1.3-3.6-1.3-2 0-3.6 1-3.6 2.8 0 1.8 1.5 2.4 3.6 2.7 2.1.3 3.6.9 3.6 2.7 0 1.8-1.6 2.8-3.6 2.8-1.4 0-2.7-.35-3.6-1.3"/>`,
+  chevronDown:`<path d="m6 9 6 6 6-6"/>`,
+  arrowRight:`<path d="M4 12h16"/><path d="m14 6 6 6-6 6"/>`,
+  user:`<circle cx="12" cy="8" r="3.4"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/>`,
+  users:`<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a6 6 0 0 1 11 0"/><path d="M15.8 5.3a3.2 3.2 0 0 1 0 6.1"/><path d="M17 14.3A6 6 0 0 1 20.8 20"/>`,
+  bookmark:`<path d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-4-6 4z"/>`,
+  bulb:`<path d="M9.5 18h5"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.8 10.7c.6.5.8.8.8 1.8v.5h6v-.5c0-1 .2-1.3.8-1.8A6 6 0 0 0 12 3Z"/>`,
+  plus:`<path d="M12 5v14M5 12h14"/>`,
+  minus:`<path d="M5 12h14"/>`,
+  eye:`<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>`,
+  flame:`<path d="M12 2.5c.8 3 3 4.3 4.3 6.2A6 6 0 1 1 6 12.7c0-1 .4-2 1-2.7a2.4 2.4 0 0 0 2.4 2.3A2.5 2.5 0 0 0 12 9.8c0-1.4-.8-2-1-3.1-.2-1.5.3-3 1-4.2Z"/>`,
+  wallet:`<rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.3" fill="currentColor" stroke="none"/>`,
+  salad:`<path d="M7.5 19.5h9"/><path d="M4 11.5h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M12 11.5c-1-3 .5-5.5 3-6.5"/><path d="M12 11.5c.5-2.5 2.8-4 5.5-3.7"/><path d="M12 11.5C10.5 9 8 8.3 5.5 9.4"/>`,
+  play:`<path d="M7 4.5v15l12-7.5z"/>`,
+};
+function icon(name,size=20,sw=2,filled=false){
+  const inner=ICONS[name]||'';
+  const f=filled?'currentColor':'none';
+  const s=filled?'none':'currentColor';
+  return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;flex:none">${inner}</svg>`;
+}
+
+/* Init static icons */
+(function(){
+  document.getElementById('ti-home').innerHTML=icon('home',22,2);
+  document.getElementById('ti-fav').innerHTML=icon('heart',22,2);
+  document.getElementById('ti-set').innerHTML=icon('settings',22,2);
+  document.getElementById('dice').innerHTML=icon('dice',44,1.8);
+  document.getElementById('roll-btn').innerHTML=icon('dice',19,1.9)+' Lắc thực đơn';
+  document.getElementById('start-btn').innerHTML='Bắt đầu nào '+icon('arrowRight',18,2.2);
+})();
+
 /* ===================== GIA VỊ ===================== */
 const SEASONINGS=[
   {k:'nuoc_mam',n:'Nước mắm'},{k:'muoi',n:'Muối'},{k:'tieu',n:'Tiêu'},{k:'duong',n:'Đường'},
@@ -335,24 +418,22 @@ const DISHES=[
   {id:'canh_bau_tom',t:'Canh bầu nấu tôm',e:'🍵',c:'canh',am:'viet',cp:1,chay:false,canxi:true,ankieng:true,tg:'15 phút',g:['hat_nem','hanh'],nl:['Bầu','Tôm tươi','Hành lá','Hạt nêm'],cn:['Giã sơ tôm cho ngọt nước.','Nấu tôm với nước sôi.','Cho bầu vào nấu mềm, rắc hành.'],dd:'Ngọt thanh, ít calo, bổ sung canxi.'}
 ];
 
-/* Từ khoá tìm ảnh (tiếng Anh cho kết quả tốt hơn) */
 const IMG_Q={pho_bo:'vietnamese pho beef noodle soup',banh_mi_opla:'banh mi fried egg sandwich',chao_thit:'rice porridge congee bowl',bun_rieu:'vietnamese crab noodle soup',com_tam:'vietnamese broken rice grilled pork',yen_mach:'oatmeal fruit breakfast bowl',xoi_dau_xanh:'sticky rice mung bean',banh_cuon:'vietnamese steamed rice rolls',sup_ga:'chicken vegetable soup',bun_chay:'vegetarian stir fried noodles',thit_kho_trung:'braised pork egg caramel',ca_kho_to:'vietnamese braised fish clay pot',ga_kho_gung:'braised chicken ginger',suon_xao_chuangot:'sweet sour pork ribs',tom_rim:'caramelized shrimp dish',trung_chien_thit:'vietnamese omelette',thit_luoc:'boiled pork belly slices',ca_hap_gung:'steamed fish ginger',bo_xao_hanhtay:'beef stir fry onion',ga_hap_la_chanh:'steamed chicken',dauhu_sot_ca:'tofu tomato sauce',dauhu_sa_ot:'fried tofu lemongrass chili',nam_kho_tieu:'braised mushrooms pepper',rau_muong_xao_toi:'stir fried water spinach garlic',cai_thia_xao:'stir fried bok choy',su_su_luoc:'boiled chayote vegetables',ca_tim_mohanh:'grilled eggplant scallion',dau_que_xao:'stir fried green beans',rau_lang_luoc:'boiled green vegetables',nam_xao_cai:'stir fried mushrooms greens',carot_suhao_luoc:'steamed carrot broccoli',canh_chua_ca:'vietnamese sour fish soup',canh_rau_ngot:'green vegetable soup',canh_bidao_tom:'winter melon soup shrimp',canh_cai_ca:'mustard greens fish soup',canh_rongbien_dauhu:'seaweed tofu soup',canh_chua_chay:'vegetarian sour soup',canh_raucu_thapcam:'mixed vegetable soup',canh_mongtoi_cua:'malabar spinach soup',canh_bau_tom:'bottle gourd shrimp soup'};
 
 /* ===================== STORAGE ===================== */
-const _mem={};
 const Store={
-  async get(k){try{if(typeof window!=='undefined'&&window.storage){const r=await window.storage.get(k,false);if(r&&r.value!=null)return JSON.parse(r.value);}}catch(e){}return (k in _mem)?_mem[k]:null;},
-  async set(k,v){_mem[k]=v;try{if(typeof window!=='undefined'&&window.storage){await window.storage.set(k,JSON.stringify(v),false);}}catch(e){}},
-  async del(k){delete _mem[k];try{if(typeof window!=='undefined'&&window.storage){await window.storage.delete(k,false);}}catch(e){}}
+  get(k){try{const v=localStorage.getItem(k);return v==null?null:JSON.parse(v);}catch(e){return null;}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}},
+  del(k){try{localStorage.removeItem(k);}catch(e){}}
 };
 const K_PROFILE='angiday:profile',K_FAV='angiday:favorites',K_TODAY='angiday:today',K_KEY='angiday:pexelskey',K_IMG='angiday:imgcache';
 
 /* ===================== STATE ===================== */
-let profile=null, favorites=[], today=null, onbStep=0, draft={};
-let pexelsKey='', imgCache={}, pexelsDisabled=false;
+let profile=null,favorites=[],today=null,onbStep=0,draft={};
+let pexelsKey='',imgCache={},pexelsDisabled=false;
 
-const CUISINES=[{k:'viet',n:'Món Việt',e:'🍚'},{k:'a',n:'Món Á (Hàn/Nhật/Trung)',e:'🍱'},{k:'tay',n:'Món Tây',e:'🍝'}];
-const DIETS=[{k:'none',n:'Không có yêu cầu gì',e:'🙂'},{k:'ankieng',n:'Ăn kiêng / giảm cân',e:'🥗'},{k:'itgv',n:'Ít gia vị',e:'🧂'},{k:'chay',n:'Ăn chay',e:'🥦'},{k:'canxi',n:'Bổ sung canxi (người lớn tuổi)',e:'🦴'},{k:'tduong',n:'Thực dưỡng',e:'🌾'}];
+const CUISINES=[{k:'viet',n:'Món Việt',ic:'soup'},{k:'a',n:'Món Á (Hàn/Nhật/Trung)',ic:'drumstick'},{k:'tay',n:'Món Tây',ic:'salad'}];
+const DIETS=[{k:'none',n:'Không có yêu cầu gì'},{k:'ankieng',n:'Ăn kiêng / giảm cân'},{k:'itgv',n:'Ít gia vị'},{k:'chay',n:'Ăn chay'},{k:'canxi',n:'Bổ sung canxi (người lớn tuổi)'},{k:'tduong',n:'Thực dưỡng'}];
 
 /* ===================== NAV ===================== */
 const screens=['welcome','onboarding','home','favorites','settings'];
@@ -382,33 +463,43 @@ function editProfile(){
   onbStep=0; show('onboarding'); renderStep();
 }
 const STEPS=['ten','nguoi','ngansach','amthuc','giavi','diet'];
-function renderProgress(){const p=document.getElementById('progress');p.innerHTML='';STEPS.forEach((_,i)=>{const d=document.createElement('i');d.className=i<onbStep?'done':(i===onbStep?'on':'');p.appendChild(d);});}
+const STEP_ICONS={ten:'user',nguoi:'users',ngansach:'wallet',amthuc:'soup',giavi:'basket',diet:'leaf'};
+function renderProgress(){
+  const p=document.getElementById('progress');p.innerHTML='';
+  STEPS.forEach((_,i)=>{const d=document.createElement('i');d.className=i<onbStep?'done':(i===onbStep?'on':'');p.appendChild(d);});
+}
 function renderStep(){
   renderProgress();
-  const c=document.getElementById('step-card'); c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop');
-  const step=STEPS[onbStep]; let html='';
+  const c=document.getElementById('step-card');c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');
+  const step=STEPS[onbStep];
+  const stepIc=`<div class="step-icon">${icon(STEP_ICONS[step]||'bulb',28,2)}</div>`;
+  let html='';
   if(step==='ten'){
-    html=`<span class="q-emoji">👨‍👩‍👧‍👦</span><h2 class="q-title">Gọi gia đình mình là gì nhỉ?</h2><p class="q-sub">Để mình chào cho thân mật (có thể bỏ qua)</p>
+    html=`${stepIc}<h2 class="q-title">Gọi gia đình mình là gì nhỉ?</h2><p class="q-sub">Để mình chào cho thân mật (có thể bỏ qua)</p>
       <div class="field"><input class="input" id="in-ten" maxlength="24" placeholder="VD: nhà Bống, gia đình Minh..." value="${esc(draft.ten||'')}" /></div>`;
   } else if(step==='nguoi'){
-    html=`<span class="q-emoji">🍽️</span><h2 class="q-title">Nhà mình có mấy người ăn?</h2><p class="q-sub">Mình sẽ canh khẩu phần cho vừa</p>
-      <div class="stepper"><button onclick="bumpNguoi(-1)" aria-label="Giảm">–</button><span class="val" id="nguoi-val">${draft.nguoi}</span><button onclick="bumpNguoi(1)" aria-label="Tăng">+</button></div><div class="stepper-label">người</div>`;
+    html=`${stepIc}<h2 class="q-title">Nhà mình có mấy người ăn?</h2><p class="q-sub">Mình sẽ canh khẩu phần cho vừa</p>
+      <div class="stepper"><button onclick="bumpNguoi(-1)" aria-label="Giảm">${icon('minus',22,2.5)}</button><span class="val" id="nguoi-val">${draft.nguoi}</span><button onclick="bumpNguoi(1)" aria-label="Tăng">${icon('plus',22,2.5)}</button></div><div class="stepper-label">người</div>`;
   } else if(step==='ngansach'){
-    html=`<span class="q-emoji">💰</span><h2 class="q-title">Ngân sách nấu ăn mỗi ngày?</h2><p class="q-sub">Mình ưu tiên món hợp túi tiền</p>
+    html=`${stepIc}<h2 class="q-title">Ngân sách nấu ăn mỗi ngày?</h2><p class="q-sub">Mình ưu tiên món hợp túi tiền</p>
       <div class="field"><input class="input" id="in-ngansach" inputmode="numeric" value="${formatVND(draft.ngansach)}" oninput="onBudgetInput(this)" /></div>
       <div class="budget-quick">${[80000,150000,250000,400000].map(v=>`<button class="chip" onclick="setBudget(${v})">${formatVND(v)}đ</button>`).join('')}</div>`;
   } else if(step==='amthuc'){
-    html=`<span class="q-emoji">😋</span><h2 class="q-title">Nhà mình thích món gì?</h2><p class="q-sub">Chọn một hoặc nhiều loại</p>
-      <div class="chips">${CUISINES.map(x=>`<button class="chip ${draft.amthuc.includes(x.k)?'sel':''}" onclick="toggle('amthuc','${x.k}',this)">${x.e} ${x.n}</button>`).join('')}</div>`;
+    html=`${stepIc}<h2 class="q-title">Nhà mình thích món gì?</h2><p class="q-sub">Chọn một hoặc nhiều loại</p>
+      <div class="chips">${CUISINES.map(x=>`<button class="chip ${draft.amthuc.includes(x.k)?'sel':''}" onclick="toggle('amthuc','${x.k}',this)">${icon(x.ic,16)} ${x.n}</button>`).join('')}</div>`;
   } else if(step==='giavi'){
-    html=`<span class="q-emoji">🧂</span><h2 class="q-title">Tủ gia vị nhà mình có gì?</h2><p class="q-sub">Mình sẽ nhắc mua thêm thứ còn thiếu</p>
+    html=`${stepIc}<h2 class="q-title">Tủ gia vị nhà mình có gì?</h2><p class="q-sub">Mình sẽ nhắc mua thêm thứ còn thiếu</p>
       <div class="chips">${SEASONINGS.map(s=>`<button class="chip green ${draft.giavi.includes(s.k)?'sel':''}" onclick="toggle('giavi','${s.k}',this)">${s.n}</button>`).join('')}</div>`;
   } else if(step==='diet'){
-    html=`<span class="q-emoji">🥗</span><h2 class="q-title">Có yêu cầu dinh dưỡng thêm không?</h2><p class="q-sub">Chọn những điều phù hợp với nhà mình</p>
-      <div class="chips">${DIETS.map(d=>`<button class="chip ${draft.diet.includes(d.k)?'sel':''}" onclick="toggleDiet('${d.k}',this)">${d.e} ${d.n}</button>`).join('')}</div>`;
+    html=`${stepIc}<h2 class="q-title">Có yêu cầu dinh dưỡng thêm không?</h2><p class="q-sub">Chọn những điều phù hợp với nhà mình</p>
+      <div class="chips">${DIETS.map(d=>`<button class="chip ${draft.diet.includes(d.k)?'sel':''}" onclick="toggleDiet('${d.k}',this)">${d.n}</button>`).join('')}</div>`;
   }
   const last=onbStep===STEPS.length-1;
-  html+=`<div class="nav-row">${onbStep>0?`<button class="btn btn-line" onclick="prevStep()">Quay lại</button>`:''}<button class="btn btn-primary" onclick="nextStep()">${last?'Xong, vào bếp thôi! 🍳':'Tiếp tục →'}</button></div>`;
+  const backBtn=onbStep>0?`<button class="btn btn-line" onclick="prevStep()">Quay lại</button>`:'';
+  const nextBtn=last
+    ?`<button class="btn btn-primary" onclick="nextStep()">Xong, vào bếp thôi!</button>`
+    :`<button class="btn btn-dark" onclick="nextStep()">Tiếp tục ${icon('arrowRight',17,2.2)}</button>`;
+  html+=`<div class="nav-row">${backBtn}${nextBtn}</div>`;
   c.innerHTML=html;
   if(step==='ten'){const i=document.getElementById('in-ten');i&&i.focus();}
 }
@@ -424,9 +515,9 @@ async function nextStep(){
   if(step==='ngansach'&&(!draft.ngansach||draft.ngansach<10000)){toast('Nhập ngân sách giúp mình nha');return;}
   if(onbStep<STEPS.length-1){onbStep++;renderStep();return;}
   profile=JSON.parse(JSON.stringify(draft));
-  await Store.set(K_PROFILE,profile);
-  toast('Đã lưu thông tin nhà mình! 🎉');
-  await loadHome(); showHome();
+  Store.set(K_PROFILE,profile);
+  toast('Đã lưu thông tin nhà mình!');
+  await loadHome();showHome();
 }
 
 /* ===================== GỢI Ý ===================== */
@@ -468,13 +559,13 @@ function generateDay(){
 
 /* ===================== HOME ===================== */
 async function loadHome(){
-  profile=await Store.get(K_PROFILE);
-  favorites=(await Store.get(K_FAV))||[];
-  today=await Store.get(K_TODAY);
-  pexelsKey=(await Store.get(K_KEY))||'';
-  imgCache=(await Store.get(K_IMG))||{};
+  profile=Store.get(K_PROFILE);
+  favorites=Store.get(K_FAV)||[];
+  today=Store.get(K_TODAY);
+  pexelsKey=Store.get(K_KEY)||'';
+  imgCache=Store.get(K_IMG)||{};
   document.getElementById('today-label').textContent=weekdayLabel();
-  document.getElementById('greet-name').innerHTML=`Chào nhà ${profile.ten?esc(profile.ten):'mình'}! 👋`;
+  document.getElementById('greet-name').innerHTML=`Chào nhà ${esc(profile.ten||'mình')}!`;
   const dietTxt=(profile.diet||[]).filter(k=>k!=='none').map(k=>DIETS.find(d=>d.k===k)?.n).filter(Boolean).join(' · ');
   document.getElementById('greet-sub').textContent=`${profile.nguoi} người · ${formatVND(profile.ngansach)}đ/ngày`+(dietTxt?` · ${dietTxt}`:'');
   if(today&&today.date===todayStr())renderMenu(today,false);
@@ -483,82 +574,116 @@ async function loadHome(){
 function showHome(){show('home');}
 async function rollMenu(){
   const dice=document.getElementById('dice');dice.classList.remove('shake');void dice.offsetWidth;dice.classList.add('shake');
-  const btn=document.getElementById('roll-btn');btn.textContent='Đang chọn món... 🍳';
+  const btn=document.getElementById('roll-btn');btn.innerHTML=icon('dice',19,1.9)+' Đang chọn món...';
   await new Promise(r=>setTimeout(r,450));
-  today=generateDay();await Store.set(K_TODAY,today);
-  btn.textContent='Lắc lại thực đơn 🎲';
+  today=generateDay();Store.set(K_TODAY,today);
+  btn.innerHTML=icon('dice',19,1.9)+' Lắc lại thực đơn';
   renderMenu(today,true);
 }
-function mealHTML(label,ic,ids){
-  return `<div class="meal"><div class="meal-head"><span class="m-ic">${ic}</span><h3>${label}</h3><span class="line"></span></div>${ids.map(dishHTML).join('')}</div>`;
-}
+
+const CAT_STYLE={
+  man:{bg:'var(--yellow-soft)',ink:'var(--yellow-ink)',lbl:'Món mặn'},
+  rau:{bg:'var(--green-soft)',ink:'var(--green-ink)',lbl:'Món rau'},
+  canh:{bg:'var(--paper-2)',ink:'var(--ink-soft)',lbl:'Canh'},
+  sang:{bg:'var(--coral-soft)',ink:'var(--coral-ink)',lbl:'Bữa sáng'},
+};
+
 function dishHTML(id){
   const d=byId(id);if(!d)return'';
   const fav=favorites.some(f=>f.type==='dish'&&f.id===id);
+  const cs=CAT_STYLE[d.c]||CAT_STYLE.man;
   const missing=(d.g||[]).filter(k=>!(profile.giavi||[]).includes(k)).map(k=>SEASON_NAME[k]);
+  const costPills=Array.from({length:d.cp}).map(()=>icon('dollar',11,2.2)).join('');
+  const tag=d.cp>=2?`<span class="dish-tag">${icon('flame',13,2)} Phổ biến</span>`:'';
   return `<div class="dish" id="dish-${id}">
-    <div class="cover" id="cover-${id}" role="button" tabindex="0" onclick="toggleDish('${id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleDish('${id}')}">
-      <span class="cover-emoji">${d.e}</span>
-      <div class="cover-tags"><span class="ctag">⏱️ ${d.tg}</span><span class="ctag">${'💵'.repeat(d.cp)}</span>${d.chay?'<span class="ctag">🌱</span>':''}</div>
-      <div class="cover-actions">
-        <button class="mini heart ${fav?'on':''}" title="Lưu món" onclick="event.stopPropagation();favDish('${id}',this)">❤</button>
-        <button class="mini" title="Đổi món khác" onclick="event.stopPropagation();swapDish('${id}')">🔄</button>
+    <div class="dish-cover" role="button" tabindex="0" onclick="toggleDish('${id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleDish('${id}')}">
+      <div class="dish-photo" id="cover-${id}">
+        <span class="photo-lbl">ảnh món</span>
+        <span class="credit"></span>
       </div>
-      <div class="cover-scrim"></div>
-      <div class="cover-title">${d.t}</div>
-      <span class="credit"></span>
+      <div class="dish-panel" style="background:${cs.bg}">
+        ${tag}
+        <span class="dish-cat" style="color:${cs.ink}">${cs.lbl}</span>
+      </div>
+      <div class="dish-actions">
+        <button class="${fav?'mini mini-coral':'mini'}" title="Lưu món" onclick="event.stopPropagation();favDish('${id}',this)">${icon('heart',16,2.1,fav)}</button>
+        <button class="mini" title="Đổi món khác" onclick="event.stopPropagation();swapDish('${id}')">${icon('refresh',15,2.1)}</button>
+      </div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">${esc(d.t)}</div>
+      <div class="dish-pills">
+        <span class="pill pill-dark">${icon('clock',13,2.1)} ${d.tg}</span>
+        <span class="pill pill-paper">${costPills}</span>
+        ${d.chay?`<span class="pill pill-green">${icon('leaf',13,2)} Chay</span>`:''}
+      </div>
     </div>
     <div class="dish-body"><div class="recipe">
-      <h4>🛒 Nguyên liệu <span style="color:var(--ink-soft);font-weight:500">(cho ${profile.nguoi} người)</span></h4>
+      <h4 class="recipe-h">${icon('basket',16)} Nguyên liệu <span class="recipe-sub">(cho ${profile.nguoi} người)</span></h4>
       <ul>${d.nl.map(x=>`<li>${x}</li>`).join('')}</ul>
-      <h4>👩‍🍳 Cách nấu</h4>
+      <h4 class="recipe-h">${icon('chefHat',16)} Cách nấu</h4>
       <ol>${d.cn.map(x=>`<li>${x}</li>`).join('')}</ol>
-      <div class="dd-note">💡 ${d.dd}</div>
-      ${missing.length?`<div class="buy-note">🧂 Cần mua thêm: ${missing.join(', ')}</div>`:''}
+      <div class="note-tip">${icon('bulb',15,2,false)} <span>${d.dd}</span></div>
+      ${missing.length?`<div class="note-buy">${icon('basket',15,2)} <span>Cần mua thêm: ${missing.join(', ')}</span></div>`:''}
     </div></div>
-    <div class="expand-hint" onclick="toggleDish('${id}')">Xem công thức ▾</div>
+    <div class="expand-hint" onclick="toggleDish('${id}')">Xem công thức ${icon('chevronDown',15,2.2)}</div>
   </div>`;
 }
+
+function mealHTML(label,ic,ids){
+  return `<div class="meal"><div class="meal-head"><span>${icon(ic,20,2)}</span><h3>${label}</h3><span class="m-line"></span></div>${ids.map(dishHTML).join('')}</div>`;
+}
 function renderMenu(menu,animate){
-  document.getElementById('menu-area').innerHTML=`<div class="card ${animate?'pop':''}">
+  document.getElementById('menu-area').innerHTML=`<div class="${animate?'pop':''}">
     <div class="note-row">${buildBalanceNote(menu)}</div>
-    ${mealHTML('Bữa sáng','🌅',[menu.sang])}
-    ${mealHTML('Bữa trưa','☀️',[menu.trua.man,menu.trua.rau,menu.trua.canh])}
-    ${mealHTML('Bữa tối','🌙',[menu.toi.man,menu.toi.rau,menu.toi.canh])}
-    <div class="day-actions"><button class="btn btn-soft" onclick="rollMenu()">🎲 Lắc lại</button><button class="btn btn-primary" onclick="saveDay()">❤️ Lưu</button></div>
+    ${mealHTML('Bữa sáng','sunrise',[menu.sang])}
+    ${mealHTML('Bữa trưa','sun',[menu.trua.man,menu.trua.rau,menu.trua.canh])}
+    ${mealHTML('Bữa tối','moon',[menu.toi.man,menu.toi.rau,menu.toi.canh])}
+    <div class="day-actions">
+      <button class="btn btn-soft btn-rounded" onclick="rollMenu()">${icon('refresh',17)} Lắc lại</button>
+      <button class="btn btn-primary btn-rounded" onclick="saveDay()">${icon('bookmark',17,2)} Lưu thực đơn</button>
+    </div>
+    <button class="btn btn-dark btn-rounded btn-block" style="margin-top:10px" onclick="rollMenu()">${icon('refresh',18)} Cuốn thực đơn mới</button>
   </div>`;
   loadAllImages(menu);
 }
 function buildBalanceNote(menu){
   const ds=[menu.sang,menu.trua.man,menu.trua.rau,menu.trua.canh,menu.toi.man,menu.toi.rau,menu.toi.canh].map(byId).filter(Boolean);
-  let c=[];
-  if(ds.some(d=>d.c==='man'||d.c==='sang'))c.push('<span class="badge">🍗 Đủ đạm</span>');
-  if(ds.some(d=>d.c==='rau'))c.push('<span class="badge green">🥬 Có rau xanh</span>');
-  if(ds.some(d=>d.c==='canh'))c.push('<span class="badge green">🍵 Có canh</span>');
   const diet=profile.diet||[];
-  if(diet.includes('canxi')&&ds.some(d=>d.canxi))c.push('<span class="badge plum">🦴 Giàu canxi</span>');
-  if(diet.includes('chay'))c.push('<span class="badge green">🌱 Thực đơn chay</span>');
-  if(diet.includes('ankieng'))c.push('<span class="badge">🥗 Ưu tiên ít calo</span>');
-  if(diet.includes('itgv'))c.push('<span class="badge">🧂 Ít gia vị</span>');
-  if(diet.includes('tduong'))c.push('<span class="badge plum">🌾 Hướng thực dưỡng</span>');
+  let c=[];
+  if(ds.some(d=>d.c==='man'||d.c==='sang'))c.push(`<span class="badge badge-dark">${icon('drumstick',14,2)} Đủ đạm</span>`);
+  if(ds.some(d=>d.c==='rau'))c.push(`<span class="badge badge-green">${icon('leaf',14,2)} Có rau xanh</span>`);
+  if(ds.some(d=>d.c==='canh'))c.push(`<span class="badge badge-yellow">${icon('soup',14,2)} Có canh</span>`);
+  if(diet.includes('canxi')&&ds.some(d=>d.canxi))c.push(`<span class="badge badge-yellow">${icon('drumstick',14,2)} Giàu canxi</span>`);
+  if(diet.includes('chay'))c.push(`<span class="badge badge-green">${icon('sprout',14,2)} Thực đơn chay</span>`);
+  if(diet.includes('ankieng'))c.push(`<span class="badge badge-green">${icon('leaf',14,2)} Ưu tiên ít calo</span>`);
+  if(diet.includes('itgv'))c.push(`<span class="badge badge-yellow">${icon('sprout',14,2)} Ít gia vị</span>`);
+  if(diet.includes('tduong'))c.push(`<span class="badge badge-yellow">${icon('sprout',14,2)} Hướng thực dưỡng</span>`);
   return c.join('');
 }
 function toggleDish(id){document.getElementById('dish-'+id).classList.toggle('open');}
 function swapDish(id){
   if(today.sang===id)today.sang=pickFrom('sang',[id]);
   else for(const meal of['trua','toi'])for(const cat of['man','rau','canh'])if(today[meal][cat]===id)today[meal][cat]=pickFrom(cat,[id]);
-  Store.set(K_TODAY,today);renderMenu(today,false);toast('Đã đổi món khác 🔄');
+  Store.set(K_TODAY,today);renderMenu(today,false);toast('Đã đổi món khác');
 }
 function favDish(id,el){
   const d=byId(id);if(!d)return;
   const i=favorites.findIndex(f=>f.type==='dish'&&f.id===id);
-  if(i>=0){favorites.splice(i,1);el.classList.remove('on');toast('Đã bỏ khỏi yêu thích');}
-  else{favorites.push({type:'dish',id,t:d.t,e:d.e,at:Date.now()});el.classList.add('on');toast('Đã lưu món yêu thích ❤️');}
+  if(i>=0){
+    favorites.splice(i,1);
+    el.className='mini';el.innerHTML=icon('heart',16,2.1,false);
+    toast('Đã bỏ khỏi yêu thích');
+  }else{
+    favorites.push({type:'dish',id,t:d.t,e:d.e,at:Date.now()});
+    el.className='mini mini-coral';el.innerHTML=icon('heart',16,2.1,true);
+    toast('Đã lưu món yêu thích');
+  }
   Store.set(K_FAV,favorites);
 }
 function saveDay(){
   favorites.unshift({type:'day',date:todayStr(),at:Date.now(),titles:[today.sang,today.trua.man,today.toi.man].map(id=>byId(id)?.t).filter(Boolean),menu:JSON.parse(JSON.stringify(today))});
-  Store.set(K_FAV,favorites);toast('Đã lưu thực đơn hôm nay ❤️');
+  Store.set(K_FAV,favorites);toast('Đã lưu thực đơn hôm nay');
 }
 
 /* ===================== ẢNH (PEXELS) ===================== */
@@ -569,7 +694,7 @@ function loadAllImages(menu){
 async function loadDishImage(id){
   const el=document.getElementById('cover-'+id);if(!el)return;
   if(imgCache[id]&&imgCache[id].url){applyCover(el,imgCache[id]);return;}
-  if(!pexelsKey||pexelsDisabled)return; // giữ icon
+  if(!pexelsKey||pexelsDisabled)return;
   el.classList.add('loading');
   try{
     const q=encodeURIComponent((IMG_Q[id]||byId(id).t)+' food');
@@ -584,32 +709,61 @@ async function loadDishImage(id){
 function applyCover(el,rec){
   if(!rec.url)return;
   const img=new Image();
-  img.onload=()=>{el.style.backgroundImage=`url("${rec.url}")`;el.classList.add('has-img');const cr=el.querySelector('.credit');if(cr&&rec.by){cr.textContent='📷 '+rec.by+' / Pexels';cr.style.display='block';}};
+  img.onload=()=>{
+    el.style.backgroundImage=`url("${rec.url}")`;
+    el.classList.add('has-img');
+    const cr=el.querySelector('.credit');
+    if(cr&&rec.by){cr.textContent=rec.by+' / Pexels';}
+  };
   img.src=rec.url;
 }
 
 /* ===================== FAVORITES ===================== */
+const CAT_LBL={sang:'Bữa sáng',man:'Món mặn',rau:'Món rau',canh:'Canh'};
 function showFavorites(){
   const list=document.getElementById('fav-list');
   if(!favorites.length){
-    list.innerHTML=`<div class="card empty"><div class="em">🍽️</div><p>Chưa có gì được lưu.<br>Lắc thực đơn rồi bấm ❤️ để cất lại nha!</p></div>`;
+    list.innerHTML=`<div class="card empty-state">
+      <div class="empty-ic">${icon('bookmark',30,1.9)}</div>
+      <p>Chưa có gì được lưu.<br>Lắc thực đơn rồi bấm tim để cất lại nha!</p>
+    </div>`;
   }else{
-    list.innerHTML=`<div class="card">`+favorites.map((f,i)=>f.type==='day'
-      ?`<div class="fav-item"><div><div class="ft">📅 Thực đơn ${formatDate(f.date)}</div><div class="fmeta">${(f.titles||[]).join(' · ')}</div></div><div style="display:flex;gap:6px"><button class="mini" style="background:var(--paper2)" title="Xem lại" onclick="reuseDay(${i})">👁️</button><button class="mini" style="background:var(--paper2)" title="Xoá" onclick="removeFav(${i})">🗑️</button></div></div>`
-      :`<div class="fav-item"><div><div class="ft">${f.e} ${f.t}</div><div class="fmeta">Món ăn yêu thích</div></div><button class="mini" style="background:var(--paper2)" title="Xoá" onclick="removeFav(${i})">🗑️</button></div>`
-    ).join('')+`</div>`;
+    list.innerHTML=`<div class="card" style="padding:12px">`+favorites.map((f,i)=>{
+      if(f.type==='day'){
+        return `<div class="fav-item">
+          <div class="fav-day-ic">${icon('bookmark',22,2)}</div>
+          <div class="fav-info"><div class="fav-name">Thực đơn ${formatDate(f.date)}</div><div class="fav-meta">${(f.titles||[]).join(' · ')}</div></div>
+          <div style="display:flex;gap:6px">
+            <button class="mini" style="color:var(--ink-soft)" title="Xem lại" onclick="reuseDay(${i})">${icon('eye',16)}</button>
+            <button class="mini" style="color:var(--coral)" title="Xoá" onclick="removeFav(${i})">${icon('trash',16)}</button>
+          </div>
+        </div>`;
+      }
+      const d=byId(f.id);
+      return `<div class="fav-item">
+        <div class="fav-thumb" id="fav-th-${f.id}"></div>
+        <div class="fav-info"><div class="fav-name">${esc(f.t)}</div><div class="fav-meta">${d?CAT_LBL[d.c]+' · '+d.tg:'Món ăn yêu thích'}</div></div>
+        <button class="mini" style="color:var(--coral)" title="Xoá" onclick="removeFav(${i})">${icon('trash',16)}</button>
+      </div>`;
+    }).join('')+`</div>`;
+    favorites.forEach(f=>{
+      if(f.type==='dish'&&imgCache[f.id]?.url){
+        const el=document.getElementById('fav-th-'+f.id);
+        if(el)el.style.backgroundImage=`url("${imgCache[f.id].url}")`;
+      }
+    });
   }
   show('favorites');
 }
 function removeFav(i){favorites.splice(i,1);Store.set(K_FAV,favorites);showFavorites();toast('Đã xoá');}
-function reuseDay(i){const f=favorites[i];if(!f||!f.menu)return;today=JSON.parse(JSON.stringify(f.menu));today.date=todayStr();Store.set(K_TODAY,today);show('home');renderMenu(today,true);toast('Đã mở lại thực đơn này 😋');}
+function reuseDay(i){const f=favorites[i];if(!f||!f.menu)return;today=JSON.parse(JSON.stringify(f.menu));today.date=todayStr();Store.set(K_TODAY,today);show('home');renderMenu(today,true);toast('Đã mở lại thực đơn này');}
 
 /* ===================== SETTINGS ===================== */
 function renderSettings(){
   const on=!!pexelsKey&&!pexelsDisabled;
   const pill=document.getElementById('img-status');
   pill.className='status-pill '+(on?'on':'off');
-  pill.textContent=on?'✅ Đang bật ảnh thật':'Đang dùng icon';
+  pill.textContent=on?'Đang bật ảnh thật':'Đang dùng ảnh placeholder';
   document.getElementById('in-key').value=pexelsKey||'';
   if(profile){
     const dietTxt=(profile.diet||[]).filter(k=>k!=='none').map(k=>DIETS.find(d=>d.k===k)?.n).filter(Boolean).join(', ')||'không';
@@ -618,12 +772,12 @@ function renderSettings(){
 }
 async function saveKey(){
   const v=(document.getElementById('in-key').value||'').trim();
-  pexelsKey=v;pexelsDisabled=false;await Store.set(K_KEY,v);
-  imgCache={};await Store.set(K_IMG,{}); // tải lại ảnh với key mới
+  pexelsKey=v;pexelsDisabled=false;Store.set(K_KEY,v);
+  imgCache={};Store.set(K_IMG,{});
   renderSettings();
-  toast(v?'Đã bật ảnh thật! 🖼️':'Đã tắt, dùng lại icon');
+  toast(v?'Đã bật ảnh thật':'Đã tắt ảnh thật');
 }
-async function clearImages(){imgCache={};await Store.set(K_IMG,{});toast('Đã xoá ảnh đã lưu, sẽ tải lại');}
+async function clearImages(){imgCache={};Store.set(K_IMG,{});toast('Đã xoá ảnh đã lưu, sẽ tải lại');}
 
 /* ===================== TIỆN ÍCH ===================== */
 function byId(id){return DISHES.find(d=>d.id===id);}
@@ -636,9 +790,9 @@ function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 /* ===================== INIT ===================== */
 (async function(){
   document.getElementById('welcome-foot').textContent='Thông tin được lưu trên thiết bị của bạn cho những lần sau.';
-  profile=await Store.get(K_PROFILE);
-  pexelsKey=(await Store.get(K_KEY))||'';
-  imgCache=(await Store.get(K_IMG))||{};
+  profile=Store.get(K_PROFILE);
+  pexelsKey=Store.get(K_KEY)||'';
+  imgCache=Store.get(K_IMG)||{};
   if(profile){await loadHome();showHome();}else{show('welcome');}
 })();
 </script>
