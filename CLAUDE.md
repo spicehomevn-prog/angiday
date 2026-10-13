@@ -4,115 +4,62 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-**Ăn Gì Đây?** ("What shall we eat today?") is a Vietnamese family meal-planning web app. This workspace contains two parallel codebases:
+**Sổ Thuê Nhà** is a Vietnamese rental-contract tracker for a landlord (Mrs. Hằng): rent collected per period, management fees paid out, debts and upcoming due dates. It replaced the old "Ăn Gì Đây?" meal planner (removed; still in git history) and keeps that app's visual design. Primary users are older people — large text, large buttons, every icon labelled.
 
-- **`an-gi-day-v2.html`** — the canonical single-file vanilla app (HTML + CSS + JS, no build step). This is the source of truth for all product logic, screens, and content.
-- **`Ăn Gì Đây Design System/`** — a React-based design system extracted from the vanilla app. See its own `CLAUDE.md` for component and brand rules.
-
-The deploy target is **Netlify** as a static site (no build command). The production structure places `index.html` under `public/` and an optional Pexels proxy under `netlify/functions/`.
+Static site, **no framework, no bundler, no build step**. Deployed on **Vercel** with `public/` as the output directory (`vercel.json`).
 
 ## Commands
 
 ```bash
-# Local dev with Netlify Functions at http://localhost:8888
-netlify dev
-
-# Preview deploy
-netlify deploy
-
-# Production deploy
-netlify deploy --prod
-
-# Set Pexels API key in Netlify environment (never hardcode it)
-netlify env:set PEXELS_API_KEY "your-key-here"
+node --test                                   # unit tests (tests/core.test.mjs) — numbers must match the Excel
+npx serve public                              # local preview (or: python3 -m http.server 8080 --directory public)
+npx vercel / npx vercel --prod                # preview / production deploy
 ```
 
-`netlify.toml` must set `publish = "public"` and `functions = "netlify/functions"` with no build command.
+## Files
 
-## Vanilla app architecture (`an-gi-day-v2.html`)
-
-The file is organized in clearly labelled comment sections — scan for the Vietnamese section names:
-
-| Section | What it contains |
+| File | Role |
 |---|---|
-| `GIA VỊ` | `SEASONINGS[]` array + `SEASON_NAME` lookup map |
-| `KHO MÓN` | `DISHES[]` (47 dishes) + `IMG_Q` (English Pexels keywords per dish ID) |
-| `STORAGE` | `Store` object + storage key constants |
-| `STATE` | Global vars: `profile`, `favorites`, `today`, `pexelsKey`, `imgCache` |
-| `NAV` | Screen switching, tab activation, toast notifications |
-| `ONBOARDING` | Multi-step profile form (name, headcount, budget, cuisine, seasonings, dietary needs) |
-| `GỢI Ý` | Menu generation algorithm |
-| `HOME` | Profile loading, menu rolling, dish card rendering |
-| `ẢNH` | Pexels image loading + caching |
-| `FAVORITES` | Save/view/delete saved dishes and menus |
-| `SETTINGS` | API key management, profile editing |
-| `TIỆN ÍCH` | Helpers: `byId`, date/VND formatting, HTML escaping |
-| `INIT` | IIFE: routes to welcome or home based on stored profile |
+| `public/index.html` | Markup shell + all CSS (design tokens in `:root`) |
+| `public/js/data.js` | `SEED` — data extracted from the Excel (contracts, rent rows, fee rows) |
+| `public/js/core.js` | `Core` — pure logic, no DOM; also loadable from Node for tests |
+| `public/js/app.js` | UI: screens, bottom sheets, save/autosave, backup/restore |
+| `public/js/pdf.js` | PDF export; lazy-loads `vendor/pdfmake.min.js` + `vendor/vfs_fonts_bvp.js` |
+| `public/sw.js` | Offline cache (bump `CACHE` when the precache list changes) |
 
-**Screens:** welcome → onboarding → home (roll menu) → favorites → settings. All five `#screen-*` divs exist in the DOM; JS shows/hides them.
+`data.js` and `core.js` use a UMD-style wrapper (`module.exports` in Node, `window.SEED` / `window.Core` in the browser). Keep it that way so tests can `require` them.
 
-**Menu algorithm** (`GỢI Ý`): filters by budget + dietary flags, scores dishes, then assembles: breakfast = 1 `sang` dish; lunch/dinner = 1 `man` + 1 `rau` + 1 `canh`.
-
-**Image loading** (`loadDishImage`): checks `imgCache` first, then calls Pexels with the dish's `IMG_Q` keyword. Results are cached in `angiday:imgcache`. Requests are staggered 120ms apart to avoid rate limiting. Falls back to the dish emoji on a gradient if no key or fetch fails.
-
-### Dish data structure
-
-Every entry in `DISHES[]` must have all of these fields:
+## Data model (`localStorage` key `thuenha:data`)
 
 ```
-id   — unique string
-t    — title (Vietnamese)
-e    — emoji
-c    — category: "sang" | "man" | "rau" | "canh"
-am   — cuisine: "viet" | "a" | "tay"
-cp   — cost tier: 1 | 2 | 3
-chay — boolean (vegetarian)
-tg   — cook time (minutes, number)
-g    — servings (number)
-nl   — nutrition note (string)
-cn   — ingredients (string, Vietnamese)
-dd   — steps (string, Vietnamese)
+contracts[]: id, tenant, phone, property, start, end, rent, dueDay, cycle, deposit, fee, feeDay, feeTo, status, note
+rent[]:      id (R###), period 'YYYY-MM', contract, months, due, dueDate 'YYYY-MM-DD', paidDate, paid, note
+fees[]:      id (F###), period, contract, due, dueDate, paidDate, paid, note
 ```
 
-Dietary flags (additional boolean fields): `itgv` (low-seasoning), `ankieng` (diet-friendly), `canxi` (calcium-rich), `tduong` (macrobiotic).
+- `due` and `dueDate` are stored per row when the row is created (editing a contract's rent doesn't rewrite history).
+- Blank Excel cells stay `null`/`''` — don't coerce to 0.
+- Prefs (font size, last backup) live in `thuenha:prefs`.
 
-When adding a dish, also add its English Pexels search keyword to `IMG_Q[id]`.
+## Business rules (mirror the Excel formulas — see `core.js`)
 
-### Storage — MUST change for Netlify
+- remaining = due − paid; days late = today − dueDate when remaining > 0.
+- Status: remaining ≤ 0 → ✅ done; dueDate < today → 🔴 late; ≤ 3 days left → 🟡 soon; else ⚪ wait.
+- Month summary = TỔNG QUAN C7:C10 / C13:C16; total debt = sum of remaining over late rows (C19/C20).
+- New periods: from the contract's start month every `cycle` months (1 = monthly, 3 = quarterly) while dueDate ≤ end date, only for status "Đang thuê"; fees monthly when fee > 0.
+- HĐ006: the 45.000.000đ received 05/08/2026 is recorded as advance payment for periods 08, 09, 10/2026 (agreed with the user; the Excel had a deleted formula there).
 
-The current `Store` object uses `window.storage` (a Claude artifact API that doesn't exist in browsers). Replace it before deploying:
+Reference numbers at 13/10/2026 (asserted in tests): 07/2026 rent 244.000.000 / 209.000.000 / 35.000.000; customers owe 923.000.000; we owe fees 53.842.700.
 
-```js
-const Store = {
-  get(k){ try { const v = localStorage.getItem(k); return v == null ? null : JSON.parse(v); } catch(e){ return null; } },
-  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} },
-  del(k){ try { localStorage.removeItem(k); } catch(e){} }
-};
-```
+## Saving
 
-Existing `await Store.get(...)` call sites work unchanged — `await` on a plain value is a no-op.
+Edits mutate in-memory `data` via `change()` and mark it dirty → yellow save bar with **Lưu lại** + countdown; autosave after 60 s (`AUTOSAVE_MS`). "Lưu" buttons inside sheets save immediately. `visibilitychange`/`pagehide` flush unsaved changes. Every change keeps an undo snapshot for the toast's "Hoàn tác".
 
-Storage keys (keep as-is): `angiday:profile`, `angiday:favorites`, `angiday:today`, `angiday:pexelskey`, `angiday:imgcache`.
+## Constraints
 
-## Pexels image proxy (Netlify Function)
-
-**Option A (simpler):** Keep the current code. Users paste their Pexels key in Settings; it's stored in `localStorage`. Each device needs its own key.
-
-**Option B (recommended for shared sites):** Add `netlify/functions/pexels.mjs` that proxies Pexels using the `PEXELS_API_KEY` env var. The function receives `?query=<term>` and returns Pexels JSON. In `index.html`, update `loadDishImage` to fetch `/.netlify/functions/pexels?query=<term>` (no Authorization header, no key check). The Pexels attribution line (`📷 author / Pexels`) is required by Pexels terms — keep it.
-
-## Design system
-
-`Ăn Gì Đây Design System/` is a React component library and design token system derived from the vanilla app. It is **not** required for the Netlify deploy — it's a separate tool for building on-brand UIs.
-
-- Do not edit `_ds_bundle.js`, `_ds_manifest.json`, or `_adherence.oxlintrc.json` — they are compiler-generated.
-- Read `Ăn Gì Đây Design System/CLAUDE.md` for brand rules, component usage, and the token system.
-- Use `Ăn Gì Đây Design System/ui_kits/app/index.html` to preview the full app flow rendered with React components.
-
-## Key constraints
-
-- **No framework, no bundler** for the vanilla app. Keep it a single file.
-- All UI text and copy must remain in **Vietnamese** with full diacritics. Voice: warm family member (`mình` / `nhà mình`), never formal or command-tone.
-- The `c` category field only accepts exactly: `sang`, `man`, `rau`, `canh`.
-- Pexels API key must never be hardcoded in source files or `netlify.toml`. Use Netlify env vars (Option B) or `localStorage` (Option A).
-- Preserve all existing features: onboarding, roll menu, swap dish, favorites, settings, bottom tab bar, keyboard support, `prefers-reduced-motion`.
-- Take screenshot when there is major change
+- All UI copy in **Vietnamese with full diacritics**; warm voice (`mình`, `nhà mình`), never command-tone.
+- Keep the design: cream paper background, yellow primary (`--yellow`), dark ink cards, dark floating tab bar, Bricolage Grotesque (display) + Be Vietnam Pro (body). Sizes in `rem` so the font-size setting scales everything.
+- Elderly-friendly: touch targets ≥ 48–56px, text labels next to icons, no hidden gestures, confirm destructive actions. Keep keyboard support (native buttons, `<dialog>`) and `prefers-reduced-motion`.
+- PDF text must use the embedded Be Vietnam Pro font; emoji don't render in PDFs (strip them, use colored cells).
+- No secrets or API keys in the repo. The seed data is intentionally public (owner's decision).
+- Take screenshots when there is a major UI change.
